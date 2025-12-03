@@ -1,65 +1,301 @@
-import Image from "next/image";
+import React from 'react';
+import Button from '@/components/ui/button';
+import Card from '@/components/ui/card';
+import VerseCard from '@/components/common/verse-card';
+import PostCard from '@/components/common/post-card';
+import Avatar from '@/components/ui/avatar';
+import Badge from '@/components/ui/badge';
+import Footer from '@/components/navigation/footer';
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen bg-[#faf8f5]">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden pt-20 pb-32 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="text-center lg:text-left">
+              <Badge variant="primary" size="md" className="mb-6">
+                ✨ Coming Soon
+              </Badge>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#3d2817] mb-6 leading-tight">
+                A Social Media
+                <span className="block text-[#8b6f47]">For Believers</span>
+              </h1>
+              <p className="text-xl text-[#6b5d4a] mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                Connect with fellow believers, share Bible verses, and grow in faith together. 
+                HolyGround brings the familiar social media experience you love, designed specifically for the Christian community.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Button
+                  buttonType="primary"
+                  buttonSize="large"
+                  buttonText="Join the Waitlist"
+                  buttonIcon={<span>📧</span>}
+                  iconPosition="left"
+                  className="text-lg px-8"
+                />
+                <Button
+                  buttonType="secondary"
+                  buttonVariant="outline"
+                  buttonSize="large"
+                  buttonText="Learn More"
+                  className="text-lg px-8"
+                />
+              </div>
+              <div className="mt-12 flex items-center justify-center lg:justify-start gap-8 text-sm text-[#6b5d4a]">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">👥</span>
+                  <span>Join thousands of believers</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">📖</span>
+                  <span>Share & discover verses</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right - Preview Cards */}
+            <div className="relative">
+              <div className="space-y-4 transform rotate-2">
+                <Card variant="elevated" className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Avatar name="Sarah M." size="md" />
+                    <div>
+                      <p className="font-semibold text-[#3d2817]">Sarah M.</p>
+                      <p className="text-xs text-[#6b5d4a]">2 hours ago</p>
+                    </div>
+                  </div>
+                  <p className="text-[#3d2817] mb-4">
+                    Meditating on this verse today. God's love is truly amazing! 🙏
+                  </p>
+                  <div className="p-4 bg-gradient-to-r from-[#f5f1eb] to-[#e8dfd0] border-l-4 border-[#8b6f47] rounded-r-md">
+                    <p className="text-[#3d2817] italic mb-2">
+                      "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, plans to give you hope and a future."
+                    </p>
+                    <p className="text-sm text-[#6b5d4a] font-medium">Jeremiah 29:11</p>
+                  </div>
+                  <div className="flex items-center gap-4 mt-4 pt-4 border-t border-[#e8dfd0]">
+                    <span className="text-[#6b5d4a]">❤️ 42</span>
+                    <span className="text-[#6b5d4a]">💬 12</span>
+                    <span className="text-[#6b5d4a]">📤 5</span>
+                  </div>
+                </Card>
+              </div>
+              <div className="absolute -top-4 -right-4 -z-10 w-full h-full bg-[#e8dfd0] rounded-lg transform -rotate-2 opacity-50"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-20 px-4 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#3d2817] mb-4">
+              Everything You Love About Social Media
+            </h2>
+            <p className="text-xl text-[#6b5d4a] max-w-2xl mx-auto">
+              Familiar features, designed for believers. Share, connect, and grow in a safe, faith-centered environment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <Card variant="paper" className="p-6 text-center">
+              <div className="text-5xl mb-4">📖</div>
+              <h3 className="text-2xl font-bold text-[#3d2817] mb-3">Share Verses</h3>
+              <p className="text-[#6b5d4a]">
+                Post your favorite Bible verses with beautiful formatting. Add your reflections and see how God's word touches others.
+              </p>
+            </Card>
+
+            {/* Feature 2 */}
+            <Card variant="paper" className="p-6 text-center">
+              <div className="text-5xl mb-4">👥</div>
+              <h3 className="text-2xl font-bold text-[#3d2817] mb-3">Build Community</h3>
+              <p className="text-[#6b5d4a]">
+                Connect with believers worldwide. Follow friends, join groups, and participate in meaningful discussions about faith.
+              </p>
+            </Card>
+
+            {/* Feature 3 */}
+            <Card variant="paper" className="p-6 text-center">
+              <div className="text-5xl mb-4">🔍</div>
+              <h3 className="text-2xl font-bold text-[#3d2817] mb-3">Discover Content</h3>
+              <p className="text-[#6b5d4a]">
+                Explore verses by topic, book, or theme. Find daily devotionals, study plans, and inspiring content from the community.
+              </p>
+            </Card>
+
+            {/* Feature 4 */}
+            <Card variant="paper" className="p-6 text-center">
+              <div className="text-5xl mb-4">💬</div>
+              <h3 className="text-2xl font-bold text-[#3d2817] mb-3">Engage & Discuss</h3>
+              <p className="text-[#6b5d4a]">
+                Like, comment, and share posts. Start conversations about Scripture and learn from others' perspectives.
+              </p>
+            </Card>
+
+            {/* Feature 5 */}
+            <Card variant="paper" className="p-6 text-center">
+              <div className="text-5xl mb-4">📱</div>
+              <h3 className="text-2xl font-bold text-[#3d2817] mb-3">Familiar Interface</h3>
+              <p className="text-[#6b5d4a]">
+                Intuitive design that feels like Instagram, Twitter, or TikTok. Easy to use, beautiful to look at, built for believers.
+              </p>
+            </Card>
+
+            {/* Feature 6 */}
+            <Card variant="paper" className="p-6 text-center">
+              <div className="text-5xl mb-4">🛡️</div>
+              <h3 className="text-2xl font-bold text-[#3d2817] mb-3">Safe Space</h3>
+              <p className="text-[#6b5d4a]">
+                A positive environment focused on encouragement, growth, and building each other up in faith.
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-20 px-4 bg-[#f5f1eb]">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#3d2817] mb-4">
+              How It Works
+            </h2>
+            <p className="text-xl text-[#6b5d4a] max-w-2xl mx-auto">
+              Getting started is simple. Join thousands of believers sharing God's word every day.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#8b6f47] text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                1
+              </div>
+              <h3 className="text-2xl font-bold text-[#3d2817] mb-3">Sign Up</h3>
+              <p className="text-[#6b5d4a]">
+                Create your account in seconds. Choose your username and set up your profile with a photo and bio.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#8b6f47] text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                2
+              </div>
+              <h3 className="text-2xl font-bold text-[#3d2817] mb-3">Follow & Connect</h3>
+              <p className="text-[#6b5d4a]">
+                Follow friends, pastors, and Christian influencers. Discover new believers and build your faith community.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-[#8b6f47] text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                3
+              </div>
+              <h3 className="text-2xl font-bold text-[#3d2817] mb-3">Share & Grow</h3>
+              <p className="text-[#6b5d4a]">
+                Post verses, share reflections, and engage with content. Watch your faith grow as you connect with others.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 px-4 bg-white">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#3d2817] mb-4">
+              What Believers Are Saying
+            </h2>
+            <p className="text-xl text-[#6b5d4a] max-w-2xl mx-auto">
+              Join a community of believers who are already experiencing the joy of sharing God's word together.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card variant="elevated" className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Avatar name="Michael T." size="lg" />
+                <div>
+                  <p className="font-semibold text-[#3d2817]">Michael T.</p>
+                  <p className="text-sm text-[#6b5d4a]">Pastor, California</p>
+                </div>
+              </div>
+              <p className="text-[#6b5d4a] italic mb-4">
+                "HolyGround has transformed how our church community connects. We share daily verses and encourage each other in ways we never could before."
+              </p>
+              <div className="text-[#8b6f47] text-xl">⭐⭐⭐⭐⭐</div>
+            </Card>
+
+            <Card variant="elevated" className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Avatar name="Jessica L." size="lg" />
+                <div>
+                  <p className="font-semibold text-[#3d2817]">Jessica L.</p>
+                  <p className="text-sm text-[#6b5d4a]">Student, Texas</p>
+                </div>
+              </div>
+              <p className="text-[#6b5d4a] italic mb-4">
+                "I love how familiar it feels - just like Instagram but for believers! I've discovered so many amazing verses and made genuine connections."
+              </p>
+              <div className="text-[#8b6f47] text-xl">⭐⭐⭐⭐⭐</div>
+            </Card>
+
+            <Card variant="elevated" className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Avatar name="David R." size="lg" />
+                <div>
+                  <p className="font-semibold text-[#3d2817]">David R.</p>
+                  <p className="text-sm text-[#6b5d4a]">Small Group Leader</p>
+                </div>
+              </div>
+              <p className="text-[#6b5d4a] italic mb-4">
+                "Finally, a social media platform where I can share my faith freely. The community is supportive, encouraging, and truly Christ-centered."
+              </p>
+              <div className="text-[#8b6f47] text-xl">⭐⭐⭐⭐⭐</div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-gradient-to-br from-[#5d4a2f] to-[#8b6f47] text-white">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Ready to Join the Community?
+          </h2>
+          <p className="text-xl mb-8 text-[#f5f1eb] max-w-2xl mx-auto">
+            Be among the first to experience HolyGround. Join our waitlist and get notified when we launch.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              buttonType="secondary"
+              buttonSize="large"
+              buttonText="Join Waitlist"
+              buttonIcon={<span>📧</span>}
+              iconPosition="left"
+              className="text-lg px-8 bg-white text-[#5d4a2f] hover:bg-[#f5f1eb]"
+            />
+            <Button
+              buttonType="secondary"
+              buttonVariant="outline"
+              buttonSize="large"
+              buttonText="Learn More"
+              className="text-lg px-8 border-2 border-white text-white hover:bg-white/10"
+            />
+          </div>
+          <p className="mt-8 text-sm text-[#d4c4b0]">
+            Coming soon to app.holyground.com
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </section>
+
+      <Footer />
     </div>
   );
 }

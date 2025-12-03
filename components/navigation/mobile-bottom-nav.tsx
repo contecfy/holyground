@@ -1,0 +1,54 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Home, Search, PenSquare, BookOpen, User } from 'lucide-react';
+
+interface NavItem {
+  label: string;
+  icon: React.ReactNode;
+  href: string;
+}
+
+const navItems: NavItem[] = [
+  { label: 'Home', icon: <Home size={20} />, href: '/app' },
+  { label: 'Explore', icon: <Search size={20} />, href: '/app/explore' },
+  { label: 'Ask', icon: <PenSquare size={20} />, href: '/app/ask' },
+  { label: 'Spaces', icon: <BookOpen size={20} />, href: '/app/spaces' },
+  { label: 'Profile', icon: <User size={20} />, href: '/app/profile' },
+];
+
+const MobileBottomNav = () => {
+  const pathname = usePathname();
+
+  return (
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#d4c4b0] md:hidden">
+      <div className="flex items-center justify-around h-16">
+        {navItems.map((item) => {
+          const isActive = pathname === item.href || (item.href === '/app' && pathname?.startsWith('/app') && pathname === '/app');
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
+                isActive
+                  ? 'text-[#5d4a2f]'
+                  : 'text-[#6b5d4a] hover:text-[#5d4a2f]'
+              }`}
+            >
+              <span className="mb-1">{item.icon}</span>
+              <span className="text-xs font-medium">{item.label}</span>
+              {isActive && (
+                <div className="absolute top-0 left-0 right-0 h-1 bg-[#5d4a2f] rounded-b-full" />
+              )}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+};
+
+export default MobileBottomNav;
+

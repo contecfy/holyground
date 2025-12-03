@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Bible-themed color palette */
+  --background: #faf8f5;
+  --foreground: #3d2817;
+  --paper-light: #f5f1eb;
+  --paper-medium: #e8dfd0;
+  --paper-dark: #d4c4b0;
+  --brown-light: #c9a882;
+  --brown-medium: #8b6f47;
+  --brown-dark: #5d4a2f;
+  --brown-darker: #3d2817;
+  --accent-gold: #d4af37;
+  --text-primary: #3d2817;
+  --text-secondary: #6b5d4a;
+  --border-color: #d4c4b0;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-paper-light: var(--paper-light);
+  --color-paper-medium: var(--paper-medium);
+  --color-paper-dark: var(--paper-dark);
+  --color-brown-light: var(--brown-light);
+  --color-brown-medium: var(--brown-medium);
+  --color-brown-dark: var(--brown-dark);
+  --color-brown-darker: var(--brown-darker);
+  --color-accent-gold: var(--accent-gold);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border-color);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* Custom scrollbar for Bible aesthetic */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--paper-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brown-light);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brown-medium);
 }
