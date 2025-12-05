@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
 import MobileBottomNav from '@/components/navigation/mobile-bottom-nav';
 import MobileHeader from '@/components/navigation/mobile-header';
 import DesktopSidebar from '@/components/navigation/desktop-sidebar';
+import { SidebarProvider } from '@/contexts/sidebar-context';
 
 export default function AppLayout({
   children,
@@ -9,13 +12,14 @@ export default function AppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#faf8f5]">
-      {/* Mobile Header */}
-      <MobileHeader />
-      
-      <div className="flex">
-        {/* Desktop Sidebar */}
-        <DesktopSidebar />
+    <SidebarProvider>
+      <div className="min-h-screen bg-[#faf8f5]">
+        {/* Mobile Header */}
+        <MobileHeader />
+        
+        <div className="flex">
+          {/* Desktop Sidebar */}
+          <DesktopSidebar />
         
         {/* Main Content */}
         <main className="flex-1 pb-16 md:pb-0 pt-0 md:pt-0">
@@ -68,11 +72,12 @@ export default function AppLayout({
             </div>
           </div>
         </aside>
+        </div>
+        
+        {/* Mobile Bottom Navigation */}
+        <MobileBottomNav />
       </div>
-      
-      {/* Mobile Bottom Navigation */}
-      <MobileBottomNav />
-    </div>
+    </SidebarProvider>
   );
 }
 

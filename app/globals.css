@@ -43,7 +43,7 @@ body {
 
 /* Custom scrollbar for Bible aesthetic */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -52,9 +52,27 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--brown-light);
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
+  background: var(--brown-medium);
+}
+
+/* Thinner scrollbar for sidebars */
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--brown-light);
+  border-radius: 2px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--brown-medium);
 }

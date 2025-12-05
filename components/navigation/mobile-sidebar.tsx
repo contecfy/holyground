@@ -63,7 +63,7 @@ const MobileSidebar = ({ isOpen, onClose }: MobileSidebarProps) => {
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-0 bottom-0 w-80 bg-white z-50 shadow-xl md:hidden transform transition-transform duration-300 ease-in-out overflow-y-auto ${
+      <aside className={`fixed left-0 top-0 bottom-0 w-80 bg-white z-50 shadow-xl md:hidden transform transition-transform duration-300 ease-in-out overflow-y-auto sidebar-scrollbar ${
         isOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         {/* Header */}
