@@ -38,7 +38,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: "Georgia", "Times New Roman", serif;
 }
 
 /* Custom scrollbar for Bible aesthetic */
@@ -75,4 +75,14 @@ body {
 
 .sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--brown-medium);
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
 }
