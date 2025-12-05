@@ -41,7 +41,7 @@ export default function PrayerPage() {
       </div>
 
       {/* Tabs */}
-      <div className="mb-6 w-full max-w-full overflow-hidden">
+      <div className="mb-6 hidden md:block">
         <div className="border-b border-[#e8dfd0] overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
           <div className="flex gap-2 md:gap-4 w-max md:w-full md:min-w-0">
             <button
