@@ -19,7 +19,7 @@ export default function AppLayout({
         
         {/* Main Content */}
         <main className="flex-1 pb-16 md:pb-0 pt-0 md:pt-0">
-          <div className="max-w-2xl mx-auto px-4 py-6 md:px-6">
+          <div className="w-full px-4 py-6 md:px-6">
             {children}
           </div>
         </main>

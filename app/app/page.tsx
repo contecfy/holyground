@@ -6,7 +6,7 @@ import Badge from '@/components/ui/badge';
 
 export default function AppHome() {
   return (
-    <div>
+    <div className="max-w-2xl mx-auto">
       {/* Header */}
      
 

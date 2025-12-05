@@ -126,7 +126,7 @@ export default function FindChurchPage() {
 
 
   return (
-    <div>
+    <div className="w-full">
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-3xl font-bold text-[#3d2817] mb-2">Find a Church</h1>
@@ -135,7 +135,7 @@ export default function FindChurchPage() {
 
       <div className="grid lg:grid-cols-12 gap-4 lg:gap-6">
         {/* Left Column - Filters (Desktop Only) */}
-        <div className="hidden lg:block lg:col-span-2">
+        <div className="hidden lg:block lg:col-span-3">
           <div className="sticky top-4">
             <Card variant="paper" className="p-4">
               <ChurchFilters
@@ -156,7 +156,7 @@ export default function FindChurchPage() {
         </div>
 
         {/* Middle Column - Filters (Mobile) & Church List */}
-        <div className="lg:col-span-5 space-y-4 lg:space-y-6">
+        <div className="lg:col-span-4 space-y-4 lg:space-y-6">
           {/* Filters - Mobile Only */}
           <div className="lg:hidden">
             <Card variant="paper" className="p-4">

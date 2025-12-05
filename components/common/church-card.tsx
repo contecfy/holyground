@@ -148,23 +148,54 @@ const ChurchCard = ({ church, onClick }: ChurchCardProps) => {
             {church.phone && (
               <div className="flex items-center gap-2 text-sm text-[#6b5d4a]">
                 <Phone size={16} className="text-[#8b6f47]" />
-                <a href={`tel:${church.phone}`} className="hover:text-[#5d4a2f] hover:underline">
-                  {church.phone}
-                </a>
+                {onClick ? (
+                  <a 
+                    href={`tel:${church.phone}`} 
+                    className="hover:text-[#5d4a2f] hover:underline"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {church.phone}
+                  </a>
+                ) : (
+                  <span 
+                    className="hover:text-[#5d4a2f] hover:underline cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      window.location.href = `tel:${church.phone}`;
+                    }}
+                  >
+                    {church.phone}
+                  </span>
+                )}
               </div>
             )}
 
             {church.website && (
               <div className="flex items-center gap-2 text-sm text-[#6b5d4a]">
                 <Globe size={16} className="text-[#8b6f47]" />
-                <a
-                  href={church.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#5d4a2f] hover:underline truncate"
-                >
-                  {church.website.replace(/^https?:\/\//, '')}
-                </a>
+                {onClick ? (
+                  <a
+                    href={church.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#5d4a2f] hover:underline truncate"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {church.website.replace(/^https?:\/\//, '')}
+                  </a>
+                ) : (
+                  <span
+                    className="hover:text-[#5d4a2f] hover:underline truncate cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      window.open(church.website, '_blank', 'noopener,noreferrer');
+                    }}
+                  >
+                    {church.website.replace(/^https?:\/\//, '')}
+                  </span>
+                )}
               </div>
             )}
 

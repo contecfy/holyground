@@ -54,6 +54,7 @@ export const demoQuestions: Question[] = [
     author: {
       name: 'Sarah Mitchell',
       username: 'sarahm',
+      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=faces',
       reputation: 1250,
       level: 7
     },
@@ -75,6 +76,7 @@ export const demoQuestions: Question[] = [
     author: {
       name: 'Michael Chen',
       username: 'michaelc',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces',
       reputation: 890,
       level: 5
     },
@@ -100,6 +102,7 @@ export const demoQuestions: Question[] = [
     author: {
       name: 'David Rodriguez',
       username: 'davidr',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces',
       reputation: 2100,
       level: 9
     },
@@ -121,6 +124,7 @@ export const demoQuestions: Question[] = [
     author: {
       name: 'Emma Johnson',
       username: 'emmaj',
+      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces',
       reputation: 450,
       level: 3
     },
@@ -145,6 +149,7 @@ export const demoQuestions: Question[] = [
     author: {
       name: 'Jessica Lee',
       username: 'jessical',
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces',
       reputation: 670,
       level: 4
     },
@@ -162,6 +167,7 @@ export const demoQuestions: Question[] = [
     author: {
       name: 'Robert Kim',
       username: 'robertk',
+      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=faces',
       reputation: 340,
       level: 2
     },
@@ -192,6 +198,7 @@ export const getAnswersForQuestion = (questionId: string): Answer[] => {
         author: {
           name: 'Pastor John Davis',
           username: 'pastorjohn',
+          avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=faces',
           reputation: 3400,
           level: 10,
           isVerified: true
@@ -221,6 +228,7 @@ export const getAnswersForQuestion = (questionId: string): Answer[] => {
         author: {
           name: 'Maria Garcia',
           username: 'mariag',
+          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=faces',
           reputation: 780,
           level: 5,
           isVerified: false
@@ -246,6 +254,7 @@ export const getAnswersForQuestion = (questionId: string): Answer[] => {
         author: {
           name: 'Dr. Elizabeth Thompson',
           username: 'elizabetht',
+          avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=faces',
           reputation: 2800,
           level: 9,
           isVerified: true
@@ -277,6 +286,7 @@ export const getAnswersForQuestion = (questionId: string): Answer[] => {
         author: {
           name: 'Rev. James Wilson',
           username: 'revjames',
+          avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=faces',
           reputation: 4200,
           level: 10,
           isVerified: true
@@ -308,6 +318,7 @@ export const getAnswersForQuestion = (questionId: string): Answer[] => {
         author: {
           name: 'Theology Professor Mark',
           username: 'profmark',
+          avatar: 'https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=200&h=200&fit=crop&crop=faces',
           reputation: 3800,
           level: 10,
           isVerified: true
@@ -333,6 +344,7 @@ export const getAnswersForQuestion = (questionId: string): Answer[] => {
         author: {
           name: 'Pastor Sarah Mitchell',
           username: 'pastorsarah',
+          avatar: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=200&fit=crop&crop=faces',
           reputation: 2900,
           level: 9,
           isVerified: true

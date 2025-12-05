@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface AvatarProps {
     src?: string;
@@ -25,6 +26,14 @@ const Avatar = ({
         xl: "w-16 h-16 text-xl"
     };
 
+    const sizePixels = {
+        xs: 24,
+        sm: 32,
+        md: 40,
+        lg: 48,
+        xl: 64
+    };
+
     const statusColors = {
         online: "bg-green-500",
         offline: "bg-gray-400",
@@ -40,10 +49,14 @@ const Avatar = ({
             .slice(0, 2);
     };
 
+    const pixelSize = sizePixels[size];
+
     const avatarContent = src ? (
-        <img 
+        <Image 
             src={src} 
             alt={alt || name || "Avatar"} 
+            width={pixelSize}
+            height={pixelSize}
             className="w-full h-full object-cover rounded-full"
         />
     ) : (
