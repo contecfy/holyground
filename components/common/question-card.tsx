@@ -241,13 +241,13 @@ const QuestionCard = ({
             <span>{views}</span>
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-6 ml-auto">
             <button
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
               }}
-              className="ml-auto text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
+              className="text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
             >
               <Share2 size={16} />
             </button>
@@ -256,7 +256,7 @@ const QuestionCard = ({
                 e.preventDefault();
                 e.stopPropagation();
               }}
-              className="ml-auto text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
+              className="text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
             >
               <Bookmark size={16} />
             </button>
