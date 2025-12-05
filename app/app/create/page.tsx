@@ -4,8 +4,15 @@ import React from 'react';
 import CreatePost, { PostType } from '@/components/common/create-post';
 
 export default function CreatePage() {
-  const handleSubmit = (title: string, content: string, postType: PostType) => {
-    console.log('Creating post:', { title, content, postType });
+  const handleSubmit = (data: {
+    title: string;
+    content: string;
+    postType: PostType;
+    topics: string[];
+    books: string[];
+    images: string[];
+  }) => {
+    console.log('Creating post:', data);
     // TODO: Implement actual post creation logic
   };
 

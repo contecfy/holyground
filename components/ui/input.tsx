@@ -6,7 +6,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     helperText?: string;
     leftIcon?: React.ReactNode;
     rightIcon?: React.ReactNode;
-    variant?: "default" | "filled" | "outlined";
+    variant?: "default" | "filled" | "outlined" | "underline";
 }
 
 const Input = ({
@@ -22,15 +22,17 @@ const Input = ({
     const variantClasses = {
         default: "bg-white border border-[#d4c4b0] focus:border-[#8b6f47]",
         filled: "bg-[#f5f1eb] border border-[#e8dfd0] focus:border-[#8b6f47] focus:bg-white",
-        outlined: "bg-transparent border-2 border-[#c9a882] focus:border-[#8b6f47]"
+        outlined: "bg-transparent border-2 border-[#c9a882] focus:border-[#8b6f47]",
+        underline: "bg-transparent border-0 border-b border-[#d4c4b0] focus:border-[#8b6f47] rounded-none px-0"
     };
 
     const baseClasses = `
         w-full px-4 py-2.5 rounded-md
         text-[#3d2817] placeholder:text-[#6b5d4a]
-        focus:outline-none focus:ring-2 focus:ring-[#8b6f47]/20
-        transition-all duration-200
-        ${error ? "border-red-500 focus:border-red-500 focus:ring-red-500/20" : ""}
+        focus:outline-none transition-all duration-200
+        ${variant === "underline" ? "" : "focus:ring-2 focus:ring-[#8b6f47]/20"}
+        ${error ? "border-red-500 focus:border-red-500" : ""}
+        ${error && variant !== "underline" ? "focus:ring-red-500/20" : ""}
         ${variantClasses[variant]}
     `.trim().replace(/\s+/g, ' ');
 

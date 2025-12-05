@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Home, Church, BookOpen, Bell, Bookmark, User, PenSquare, Heart, MessageCircle, Users } from 'lucide-react';
 import Avatar from '../ui/avatar';
 import Button from '../ui/button';
+import Image from 'next/image';
 
 interface NavItem {
   label: string;
@@ -15,7 +16,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: 'Home', icon: <Home size={20} />, href: '/app' },
-  { label: 'Find Church', icon: <Church size={20} />, href: '/app/explore' },
+  { label: 'Find Church', icon: <Church size={20} />, href: '/app/find-church' },
   { label: 'Prayer', icon: <Heart size={20} />, href: '/app/prayer' },
   { label: 'Chat', icon: <MessageCircle size={20} />, href: '/app/chat' },
   { label: 'Spaces', icon: <BookOpen size={20} />, href: '/app/spaces' },
@@ -31,9 +32,7 @@ const DesktopSidebar = () => {
       {/* Logo */}
       <div className="p-4 border-b border-[#d4c4b0]">
         <Link href="/app" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-[#5d4a2f] to-[#8b6f47] rounded-lg flex items-center justify-center shadow-md">
-            <span className="text-white text-xl font-bold">✝</span>
-          </div>
+          <Image src="/logo.png" alt="HolyGround" width={80} height={80} />
           <div>
             <h1 className="text-xl font-bold text-[#3d2817] tracking-wide">HolyGround</h1>
             <p className="text-xs text-[#6b5d4a] -mt-1">Bible Q&A</p>

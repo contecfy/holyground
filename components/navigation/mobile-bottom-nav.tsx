@@ -13,7 +13,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: 'Explore', icon: <Search size={20} />, href: '/app' },
-  { label: 'Find Church', icon: <Church size={20} />, href: '/app/explore' },
+  { label: 'Find Church', icon: <Church size={20} />, href: '/app/find-church' },
   { label: 'Create', icon: <PenSquare size={20} />, href: '/app/create' },
   { label: 'Prayer', icon: <Heart size={20} />, href: '/app/prayer' },
   { label: 'Chat', icon: <MessageCircle size={20} />, href: '/app/chat' },
