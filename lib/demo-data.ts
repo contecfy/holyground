@@ -17,6 +17,7 @@ export interface Question {
   views: number;
   timestamp: string;
   isAnswered: boolean;
+  images?: string[];
   topAnswer?: {
     author: string;
     preview: string;
@@ -84,6 +85,10 @@ export const demoQuestions: Question[] = [
     views: 245,
     timestamp: '5 hours ago',
     isAnswered: true,
+    images: [
+      'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&h=600&fit=crop',
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop'
+    ],
     topAnswer: {
       author: 'Dr. Elizabeth Thompson',
       preview: 'The Bible provides clear guidance on responding to persecution with grace, prayer, and unwavering faith...'
@@ -126,6 +131,9 @@ export const demoQuestions: Question[] = [
     views: 412,
     timestamp: '3 days ago',
     isAnswered: true,
+    images: [
+      'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&h=600&fit=crop'
+    ],
     topAnswer: {
       author: 'Theology Professor Mark',
       preview: 'The Trinity is one God in three persons: Father, Son, and Holy Spirit. Each is fully God, yet distinct...'

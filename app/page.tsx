@@ -6,10 +6,12 @@ import PostCard from '@/components/common/post-card';
 import Avatar from '@/components/ui/avatar';
 import Badge from '@/components/ui/badge';
 import Footer from '@/components/navigation/footer';
+import Header from '@/components/navigation/header';
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#faf8f5]">
+      <Header />
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-20 pb-32 px-4">
         <div className="container mx-auto max-w-6xl">

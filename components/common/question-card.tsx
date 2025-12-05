@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { ChevronUp, MessageCircle, Eye, BookOpen, Bookmark, Check } from 'lucide-react';
+import Image from 'next/image';
+import { ChevronUp, MessageCircle, Eye, BookOpen, Bookmark, Check, X } from 'lucide-react';
 import Card from '../ui/card';
 import Avatar from '../ui/avatar';
 import Badge from '../ui/badge';
@@ -24,6 +25,7 @@ interface QuestionCardProps {
   views: number;
   timestamp: string;
   isAnswered?: boolean;
+  images?: string[];
   topAnswer?: {
     author: string;
     preview: string;
@@ -41,8 +43,11 @@ const QuestionCard = ({
   views,
   timestamp,
   isAnswered = false,
+  images = [],
   topAnswer
 }: QuestionCardProps) => {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <Link href={`/app/question/${id}`}>
       <Card variant="paper" className="mb-4 hover:shadow-lg transition-all cursor-pointer group">
@@ -110,6 +115,43 @@ const QuestionCard = ({
           ))}
         </div>
 
+        {/* Images */}
+        {images && images.length > 0 && (
+          <div className={`mb-4 grid gap-2 ${
+            images.length === 1 
+              ? 'grid-cols-1' 
+              : images.length === 2 
+              ? 'grid-cols-2' 
+              : 'grid-cols-2'
+          }`}>
+            {images.slice(0, 3).map((image, index) => (
+              <div
+                key={index}
+                className="relative aspect-video rounded-lg overflow-hidden bg-[#f5f1eb] cursor-pointer group"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setSelectedImage(image);
+                }}
+              >
+                <Image
+                  src={image}
+                  alt={`Question image ${index + 1}`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-200"
+                />
+                {images.length > 3 && index === 2 && (
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <span className="text-white font-semibold">
+                      +{images.length - 3} more
+                    </span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Top Answer Preview */}
         {topAnswer && (
           <div className="mb-4 p-3 bg-[#f5f1eb] border-l-4 border-[#8b6f47] rounded-r-md">
@@ -118,6 +160,37 @@ const QuestionCard = ({
               <span className="text-xs text-[#6b5d4a]">by {topAnswer.author}</span>
             </div>
             <p className="text-sm text-[#3d2817] line-clamp-2">{topAnswer.preview}</p>
+          </div>
+        )}
+
+        {/* Image Modal */}
+        {selectedImage && (
+          <div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setSelectedImage(null);
+            }}
+          >
+            <div className="relative max-w-7xl max-h-[90vh] w-full h-full">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setSelectedImage(null);
+                }}
+                className="absolute top-4 right-4 z-10 bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition-colors"
+              >
+                <X size={24} />
+              </button>
+              <Image
+                src={selectedImage}
+                alt="Full size image"
+                fill
+                className="object-contain"
+              />
+            </div>
           </div>
         )}
 
