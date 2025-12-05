@@ -1,5 +1,7 @@
-// Common Components
-export { default as PostCard } from './post-card';
-export { default as VerseCard } from './verse-card';
-export { default as CreatePost } from './create-post';
+import PostCard from './post-card';
+import VerseCard from './verse-card';
+import CreatePost, { PostType } from './create-post';
+import QuestionCard from './question-card';
+import AnswerCard from './answer-card';
 
+export { PostCard, VerseCard, CreatePost, PostType, QuestionCard, AnswerCard };

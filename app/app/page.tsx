@@ -1,4 +1,3 @@
-import React from 'react';
 import QuestionCard from '@/components/common/question-card';
 import { demoQuestions } from '@/lib/demo-data';
 import Button from '@/components/ui/button';

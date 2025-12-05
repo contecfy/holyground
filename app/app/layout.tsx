@@ -1,5 +1,6 @@
 import React from 'react';
 import MobileBottomNav from '@/components/navigation/mobile-bottom-nav';
+import MobileHeader from '@/components/navigation/mobile-header';
 import DesktopSidebar from '@/components/navigation/desktop-sidebar';
 
 export default function AppLayout({
@@ -9,12 +10,15 @@ export default function AppLayout({
 }) {
   return (
     <div className="min-h-screen bg-[#faf8f5]">
+      {/* Mobile Header */}
+      <MobileHeader />
+      
       <div className="flex">
         {/* Desktop Sidebar */}
         <DesktopSidebar />
         
         {/* Main Content */}
-        <main className="flex-1 pb-16 md:pb-0">
+        <main className="flex-1 pb-16 md:pb-0 pt-0 md:pt-0">
           <div className="max-w-2xl mx-auto px-4 py-6 md:px-6">
             {children}
           </div>

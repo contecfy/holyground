@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Search, PenSquare, BookOpen, User } from 'lucide-react';
+import { Home, Church, PenSquare, Heart, MessageCircle, Search } from 'lucide-react';
 
 interface NavItem {
   label: string;
@@ -12,11 +12,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Home', icon: <Home size={20} />, href: '/app' },
-  { label: 'Explore', icon: <Search size={20} />, href: '/app/explore' },
-  { label: 'Ask', icon: <PenSquare size={20} />, href: '/app/ask' },
-  { label: 'Spaces', icon: <BookOpen size={20} />, href: '/app/spaces' },
-  { label: 'Profile', icon: <User size={20} />, href: '/app/profile' },
+  { label: 'Explore', icon: <Search size={20} />, href: '/app' },
+  { label: 'Find Church', icon: <Church size={20} />, href: '/app/explore' },
+  { label: 'Create', icon: <PenSquare size={20} />, href: '/app/create' },
+  { label: 'Prayer', icon: <Heart size={20} />, href: '/app/prayer' },
+  { label: 'Chat', icon: <MessageCircle size={20} />, href: '/app/chat' },
 ];
 
 const MobileBottomNav = () => {

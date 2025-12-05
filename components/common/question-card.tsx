@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronUp, MessageCircle, Eye, BookOpen, Bookmark, Check, X } from 'lucide-react';
-import Card from '../ui/card';
+import { ChevronUp, MessageCircle, Eye, BookOpen, Bookmark, Check, X, ArrowUpWideNarrow } from 'lucide-react';
 import Avatar from '../ui/avatar';
 import Badge from '../ui/badge';
 
@@ -50,27 +49,26 @@ const QuestionCard = ({
 
   return (
     <Link href={`/app/question/${id}`}>
-      <Card variant="paper" className="mb-4 hover:shadow-lg transition-all cursor-pointer group">
+      <div className="py-4 px-4 hover:bg-[#f5f1eb]/50 transition-colors cursor-pointer group border-t border-b border-[#e8dfd0]/80 first:border-t-0">
         {/* Header */}
         <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-3 flex-1 min-w-0">
+          <div className="flex items-center gap-2 flex-1 min-w-0">
             <Avatar 
               src={author.avatar}
               name={author.name}
-              size="sm"
+              size="md"
             />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <p className="font-semibold text-[#3d2817] truncate">{author.name}</p>
-                <span className="text-xs text-[#6b5d4a]">@{author.username}</span>
+                <span className="text-base font-semibold text-[#6b5d4a]">@{author.username}</span>
                 {author.reputation && (
                   <span className="text-xs text-[#6b5d4a]">• {author.reputation.toLocaleString()} rep</span>
                 )}
-                {author.level && (
+                {/* {author.level && (
                   <Badge variant="secondary" size="sm">
                     L{author.level}
                   </Badge>
-                )}
+                )} */}
               </div>
               <p className="text-xs text-[#6b5d4a]">{timestamp}</p>
             </div>
@@ -154,7 +152,7 @@ const QuestionCard = ({
 
         {/* Top Answer Preview */}
         {topAnswer && (
-          <div className="mb-4 p-3 bg-[#f5f1eb] border-l-4 border-[#8b6f47] rounded-r-md">
+          <div className="mb-4 p-3 bg-[#f5f1eb]/60 rounded-md">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-semibold text-[#8b6f47]">TOP ANSWER</span>
               <span className="text-xs text-[#6b5d4a]">by {topAnswer.author}</span>
@@ -195,7 +193,7 @@ const QuestionCard = ({
         )}
 
         {/* Stats */}
-        <div className="flex items-center gap-6 pt-3 border-t border-[#e8dfd0] text-sm text-[#6b5d4a]">
+        <div className="flex items-center gap-6 pt-3 text-sm text-[#6b5d4a]">
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -203,7 +201,7 @@ const QuestionCard = ({
             }}
             className="flex items-center gap-1 hover:text-[#5d4a2f] transition-colors"
           >
-            <ChevronUp size={16} />
+            <ArrowUpWideNarrow size={16} />
             <span className="font-medium">{upvotes}</span>
           </button>
           <div className="flex items-center gap-1">
@@ -224,7 +222,7 @@ const QuestionCard = ({
             <Bookmark size={16} />
           </button>
         </div>
-      </Card>
+      </div>
     </Link>
   );
 };

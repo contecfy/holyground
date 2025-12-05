@@ -1,159 +1,100 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
-import Image from 'next/image';
-import { BookOpen, Tag, Image as ImageIcon, X } from 'lucide-react';
+import React, { useState } from 'react';
 import Card from '../ui/card';
+import Input from '../ui/input';
 import Textarea from '../ui/textarea';
 import Button from '../ui/button';
-import Avatar from '../ui/avatar';
+
+export enum PostType {
+    POST = 'post',
+    QUESTION = 'question',
+    STORY = 'story'
+}
 
 interface CreatePostProps {
-    user: {
-        name: string;
-        avatar?: string;
-    };
-    onSubmit?: (content: string, images: string[]) => void;
-    placeholder?: string;
+    onSubmit?: (title: string, content: string, postType: PostType) => void;
 }
 
 const CreatePost = ({
-    user,
-    onSubmit,
-    placeholder = "Share a verse, reflection, or thought with the community..."
+    onSubmit
 }: CreatePostProps) => {
+    const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [images, setImages] = useState<string[]>([]);
-    const fileInputRef = useRef<HTMLInputElement>(null);
-
-    const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
-        if (files) {
-            Array.from(files).forEach((file) => {
-                if (file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                        if (reader.result) {
-                            setImages((prev) => [...prev, reader.result as string]);
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-    };
-
-    const removeImage = (index: number) => {
-        setImages((prev) => prev.filter((_, i) => i !== index));
-    };
+    const [postType, setPostType] = useState<PostType>(PostType.POST);
 
     const handleSubmit = () => {
-        if ((content.trim() || images.length > 0) && onSubmit) {
-            onSubmit(content, images);
+        if (title.trim() && content.trim() && onSubmit) {
+            onSubmit(title, content, postType);
+            setTitle('');
             setContent('');
-            setImages([]);
-            setIsExpanded(false);
+            setPostType(PostType.POST);
         }
     };
 
     return (
         <Card variant="paper" className="mb-4">
-            <div className="flex gap-3">
-                <Avatar 
-                    src={user.avatar}
-                    name={user.name}
-                    size="md"
+            <div className="space-y-4">
+                {/* Title Input */}
+                <Input
+                    placeholder="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    variant="filled"
+                    className="text-base"
                 />
-                <div className="flex-1">
-                    <Textarea
-                        placeholder={placeholder}
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        onFocus={() => setIsExpanded(true)}
-                        variant="filled"
-                        rows={isExpanded ? 4 : 2}
-                        className="mb-3"
-                    />
-                    
-                    {/* Image Preview */}
-                    {images.length > 0 && (
-                        <div className="mb-3 grid grid-cols-2 gap-2">
-                            {images.map((image, index) => (
-                                <div key={index} className="relative aspect-square rounded-lg overflow-hidden bg-[#f5f1eb] group">
-                                    <Image
-                                        src={image}
-                                        alt={`Preview ${index + 1}`}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                    <button
-                                        onClick={() => removeImage(index)}
-                                        className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white p-1 rounded-full transition-colors opacity-0 group-hover:opacity-100"
-                                    >
-                                        <X size={16} />
-                                    </button>
-                                </div>
-                            ))}
-                        </div>
-                    )}
 
-                    {isExpanded && (
-                        <div className="flex items-center justify-between">
-                            <div className="flex gap-2">
-                                <input
-                                    type="file"
-                                    ref={fileInputRef}
-                                    onChange={handleImageSelect}
-                                    accept="image/*"
-                                    multiple
-                                    className="hidden"
-                                />
-                                <Button
-                                    buttonType="secondary"
-                                    buttonVariant="ghost"
-                                    buttonSize="small"
-                                    buttonIcon={<ImageIcon size={16} />}
-                                    buttonText="Add Image"
-                                    onClick={() => fileInputRef.current?.click()}
-                                />
-                                <Button
-                                    buttonType="secondary"
-                                    buttonVariant="ghost"
-                                    buttonSize="small"
-                                    buttonIcon={<BookOpen size={16} />}
-                                    buttonText="Add Verse"
-                                />
-                                <Button
-                                    buttonType="secondary"
-                                    buttonVariant="ghost"
-                                    buttonSize="small"
-                                    buttonIcon={<Tag size={16} />}
-                                    buttonText="Tag"
-                                />
-                            </div>
-                            <div className="flex gap-2">
-                                <Button
-                                    buttonType="secondary"
-                                    buttonVariant="ghost"
-                                    buttonSize="small"
-                                    buttonText="Cancel"
-                                    onClick={() => {
-                                        setIsExpanded(false);
-                                        setContent('');
-                                        setImages([]);
-                                    }}
-                                />
-                                <Button
-                                    buttonType="primary"
-                                    buttonSize="small"
-                                    buttonText="Post"
-                                    onClick={handleSubmit}
-                                    buttonDisabled={!content.trim() && images.length === 0}
-                                />
-                            </div>
-                        </div>
-                    )}
+                {/* Content Input */}
+                <Textarea
+                    placeholder="What's on your mind?"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    variant="filled"
+                    rows={4}
+                />
+
+                {/* Post Type Selector */}
+                <div className="flex gap-2">
+                    <button
+                        onClick={() => setPostType(PostType.POST)}
+                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                            postType === PostType.POST
+                                ? 'bg-[#5d4a2f] text-white'
+                                : 'bg-[#f5f1eb] text-[#6b5d4a] hover:bg-[#e8dfd0]'
+                        }`}
+                    >
+                        Post
+                    </button>
+                    <button
+                        onClick={() => setPostType(PostType.QUESTION)}
+                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                            postType === PostType.QUESTION
+                                ? 'bg-[#5d4a2f] text-white'
+                                : 'bg-[#f5f1eb] text-[#6b5d4a] hover:bg-[#e8dfd0]'
+                        }`}
+                    >
+                        Question
+                    </button>
+                    <button
+                        onClick={() => setPostType(PostType.STORY)}
+                        className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                            postType === PostType.STORY
+                                ? 'bg-[#5d4a2f] text-white'
+                                : 'bg-[#f5f1eb] text-[#6b5d4a] hover:bg-[#e8dfd0]'
+                        }`}
+                    >
+                        Story
+                    </button>
+                </div>
+
+                {/* Submit Button */}
+                <div className="flex justify-end">
+                    <Button
+                        buttonType="primary"
+                        buttonText="Post"
+                        onClick={handleSubmit}
+                        buttonDisabled={!title.trim() || !content.trim()}
+                    />
                 </div>
             </div>
         </Card>
