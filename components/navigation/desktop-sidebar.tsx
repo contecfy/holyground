@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Church, BookOpen, Bell, Bookmark, User, PenSquare, Heart, MessageCircle, Users } from 'lucide-react';
+import { Home, Church, BookOpen, Bell, Bookmark, User, PenSquare, Heart, MessageCircle, Users, Search } from 'lucide-react';
 import Avatar from '../ui/avatar';
 import Button from '../ui/button';
 import Image from 'next/image';
@@ -15,7 +15,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Home', icon: <Home size={20} />, href: '/app' },
+  { label: 'Explore', icon: <Search size={20} />, href: '/app' },
   { label: 'Find Church', icon: <Church size={20} />, href: '/app/find-church' },
   { label: 'Prayer', icon: <Heart size={20} />, href: '/app/prayer' },
   { label: 'Chat', icon: <MessageCircle size={20} />, href: '/app/chat' },

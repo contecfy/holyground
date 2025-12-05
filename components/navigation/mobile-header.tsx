@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Gift, HandHeart, Menu, Search } from 'lucide-react';
 import Avatar from '../ui/avatar';
 import MobileSidebar from './mobile-sidebar';
+import Image from 'next/image';
 
 const MobileHeader = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -25,9 +26,7 @@ const MobileHeader = () => {
 
           {/* Platform Name */}
           <Link href="/app" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-[#5d4a2f] to-[#8b6f47] rounded-lg flex items-center justify-center shadow-md">
-              <span className="text-white text-lg font-bold">✝</span>
-            </div>
+            <Image src="/logo.png" alt="HolyGround" width={40} height={40} />
             <h1 className="text-lg font-bold text-[#3d2817] tracking-wide">HolyGround</h1>
           </Link>
           </div>

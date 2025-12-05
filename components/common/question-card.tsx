@@ -60,7 +60,7 @@ const QuestionCard = ({
             />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-base font-semibold text-[#6b5d4a]">@{author.username}</span>
+                <span className="text-sm font-semibold text-[#6b5d4a]">{author.username}</span>
                 {author.reputation && (
                   <span className="text-xs text-[#6b5d4a]">• {author.reputation.toLocaleString()} rep</span>
                 )}
