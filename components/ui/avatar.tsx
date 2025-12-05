@@ -5,7 +5,7 @@ interface AvatarProps {
     src?: string;
     alt?: string;
     name?: string;
-    size?: "xs" | "sm" | "md" | "lg" | "xl";
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
     status?: "online" | "offline" | "away";
     className?: string;
 }
@@ -23,7 +23,9 @@ const Avatar = ({
         sm: "w-8 h-8 text-sm",
         md: "w-10 h-10 text-base",
         lg: "w-12 h-12 text-lg",
-        xl: "w-16 h-16 text-xl"
+        xl: "w-16 h-16 text-xl",
+        "2xl": "w-24 h-24 text-2xl",
+        "3xl": "w-32 h-32 text-3xl"
     };
 
     const sizePixels = {
@@ -31,7 +33,9 @@ const Avatar = ({
         sm: 32,
         md: 40,
         lg: 48,
-        xl: 64
+        xl: 64,
+        "2xl": 96,
+        "3xl": 128
     };
 
     const statusColors = {
