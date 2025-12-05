@@ -1,11 +1,20 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { ChevronUp, MessageCircle, Eye, BookOpen, Bookmark, Check, X, ArrowUpWideNarrow } from 'lucide-react';
-import Avatar from '../ui/avatar';
-import Badge from '../ui/badge';
+import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import {
+  MessageCircle,
+  Eye,
+  BookOpen,
+  Bookmark,
+  Check,
+  X,
+  ArrowUpWideNarrow,
+  Share2,
+} from "lucide-react";
+import Avatar from "../ui/avatar";
+import Badge from "../ui/badge";
 
 interface QuestionCardProps {
   id: string;
@@ -43,7 +52,7 @@ const QuestionCard = ({
   timestamp,
   isAnswered = false,
   images = [],
-  topAnswer
+  topAnswer,
 }: QuestionCardProps) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -53,16 +62,16 @@ const QuestionCard = ({
         {/* Header */}
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            <Avatar 
-              src={author.avatar}
-              name={author.name}
-              size="md"
-            />
+            <Avatar src={author.avatar} name={author.name} size="md" />
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-sm font-semibold text-[#6b5d4a]">{author.username}</span>
+                <span className="text-sm font-semibold text-[#6b5d4a]">
+                  {author.username}
+                </span>
                 {author.reputation && (
-                  <span className="text-xs text-[#6b5d4a]">• {author.reputation.toLocaleString()} rep</span>
+                  <span className="text-xs text-[#6b5d4a]">
+                    • {author.reputation.toLocaleString()} rep
+                  </span>
                 )}
                 {/* {author.level && (
                   <Badge variant="secondary" size="sm">
@@ -75,7 +84,11 @@ const QuestionCard = ({
           </div>
           <div className="flex items-center gap-2">
             {isAnswered && (
-              <Badge variant="success" size="sm" className="flex items-center gap-1">
+              <Badge
+                variant="success"
+                size="sm"
+                className="flex items-center gap-1"
+              >
                 <Check size={12} />
                 Answered
               </Badge>
@@ -94,7 +107,7 @@ const QuestionCard = ({
         </div>
 
         {/* Question */}
-        <h2 className="text-xl font-bold text-[#3d2817] mb-3 leading-tight hover:text-[#5d4a2f] transition-colors">
+        <h2 className="text-lg md:text-xl font-bold text-[#3d2817] mb-3 leading-tight hover:text-[#5d4a2f] transition-colors">
           {question}
         </h2>
 
@@ -106,7 +119,12 @@ const QuestionCard = ({
             </Badge>
           ))}
           {books.map((book) => (
-            <Badge key={book} variant="primary" size="sm" className="flex items-center gap-1">
+            <Badge
+              key={book}
+              variant="primary"
+              size="sm"
+              className="flex items-center gap-1"
+            >
               <BookOpen size={12} />
               {book}
             </Badge>
@@ -115,13 +133,15 @@ const QuestionCard = ({
 
         {/* Images */}
         {images && images.length > 0 && (
-          <div className={`mb-4 grid gap-2 ${
-            images.length === 1 
-              ? 'grid-cols-1' 
-              : images.length === 2 
-              ? 'grid-cols-2' 
-              : 'grid-cols-2'
-          }`}>
+          <div
+            className={`mb-4 grid gap-2 ${
+              images.length === 1
+                ? "grid-cols-1"
+                : images.length === 2
+                  ? "grid-cols-2"
+                  : "grid-cols-2"
+            }`}
+          >
             {images.slice(0, 3).map((image, index) => (
               <div
                 key={index}
@@ -154,10 +174,16 @@ const QuestionCard = ({
         {topAnswer && (
           <div className="mb-4 p-3 bg-[#f5f1eb]/60 rounded-md">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs font-semibold text-[#8b6f47]">TOP ANSWER</span>
-              <span className="text-xs text-[#6b5d4a]">by {topAnswer.author}</span>
+              <span className="text-xs font-semibold text-[#8b6f47]">
+                TOP ANSWER
+              </span>
+              <span className="text-xs text-[#6b5d4a]">
+                by {topAnswer.author}
+              </span>
             </div>
-            <p className="text-sm text-[#3d2817] line-clamp-2">{topAnswer.preview}</p>
+            <p className="text-sm text-[#3d2817] line-clamp-2">
+              {topAnswer.preview}
+            </p>
           </div>
         )}
 
@@ -206,21 +232,35 @@ const QuestionCard = ({
           </button>
           <div className="flex items-center gap-1">
             <MessageCircle size={16} />
-            <span className="font-medium">{answerCount} {answerCount === 1 ? 'answer' : 'answers'}</span>
+            <span className="font-medium">
+              {answerCount} {answerCount === 1 ? "answer" : "answers"}
+            </span>
           </div>
           <div className="flex items-center gap-1">
             <Eye size={16} />
             <span>{views}</span>
           </div>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-            className="ml-auto text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
-          >
-            <Bookmark size={16} />
-          </button>
+
+          <div className="flex items-center gap-1">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              className="ml-auto text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
+            >
+              <Share2 size={16} />
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              className="ml-auto text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
+            >
+              <Bookmark size={16} />
+            </button>
+          </div>
         </div>
       </div>
     </Link>
@@ -228,4 +268,3 @@ const QuestionCard = ({
 };
 
 export default QuestionCard;
-

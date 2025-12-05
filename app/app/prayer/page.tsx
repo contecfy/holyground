@@ -29,11 +29,13 @@ export default function PrayerPage() {
   );
 
   return (
-    <div>
+    <div className="w-full max-w-full overflow-x-hidden">
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-[#3d2817] mb-2">Join Prayer</h1>
-        <p className="text-[#6b5d4a]">
+        <h1 className="text-2xl md:text-3xl font-bold text-[#3d2817] mb-2">
+          Join Prayer
+        </h1>
+        <p className="text-sm md:text-base text-[#6b5d4a]">
           Connect with others in prayer and intercession
         </p>
       </div>
@@ -107,9 +109,9 @@ export default function PrayerPage() {
 
       {activeTab === "live" && (
         <div>
-          <div className="mb-6 flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold text-[#3d2817] mb-1">
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex-1 min-w-0">
+              <h2 className="text-lg md:text-xl font-bold text-[#3d2817] mb-1">
                 Active Prayer Requests
               </h2>
               <p className="text-sm text-[#6b5d4a]">
@@ -120,6 +122,7 @@ export default function PrayerPage() {
               buttonType="primary"
               buttonIcon={<Heart size={18} />}
               buttonText="Post Prayer Request"
+              className="w-full sm:w-auto flex-shrink-0"
             />
           </div>
           <div className="space-y-4">
