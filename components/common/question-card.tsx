@@ -16,7 +16,7 @@ import {
 import Avatar from "../ui/avatar";
 import Badge from "../ui/badge";
 
-interface QuestionCardProps {
+export interface QuestionCardProps {
   id: string;
   question: string;
   author: {

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import { MapPin, Phone, Globe, Users, Calendar, Mail, Share2, Bookmark } from 'lucide-react';
-import { Church } from './church-card';
-import Badge from '../ui/badge';
-import Button from '../ui/button';
+import React from "react";
+import Image from "next/image";
+import { MapPin, Phone, Globe, Users, Share2, Bookmark } from "lucide-react";
+import { Church } from "./church-card";
+import Badge from "../ui/badge";
+import Button from "../ui/button";
 
 interface ChurchDetailHeaderProps {
   church: Church;
@@ -42,14 +42,18 @@ const ChurchDetailHeader = ({ church }: ChurchDetailHeaderProps) => {
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between mb-3">
               <div className="flex-1">
-                <h1 className="text-4xl font-bold text-[#3d2817] mb-3">{church.name}</h1>
+                <h1 className="text-4xl font-bold text-[#3d2817] mb-3">
+                  {church.name}
+                </h1>
                 {church.denomination && (
                   <Badge variant="secondary" size="md" className="mb-3">
                     {church.denomination}
                   </Badge>
                 )}
                 {church.description && (
-                  <p className="text-lg text-[#6b5d4a] mt-3">{church.description}</p>
+                  <p className="text-lg text-[#6b5d4a] mt-3">
+                    {church.description}
+                  </p>
                 )}
               </div>
               <div className="flex gap-2 ml-4 flex-shrink-0">
@@ -84,7 +88,10 @@ const ChurchDetailHeader = ({ church }: ChurchDetailHeaderProps) => {
 
           {church.phone && (
             <div className="flex items-start gap-3 p-4 bg-[#f5f1eb] rounded-lg">
-              <Phone size={20} className="text-[#8b6f47] mt-0.5 flex-shrink-0" />
+              <Phone
+                size={20}
+                className="text-[#8b6f47] mt-0.5 flex-shrink-0"
+              />
               <div>
                 <p className="text-sm font-medium text-[#3d2817] mb-1">Phone</p>
                 <a
@@ -99,16 +106,21 @@ const ChurchDetailHeader = ({ church }: ChurchDetailHeaderProps) => {
 
           {church.website && (
             <div className="flex items-start gap-3 p-4 bg-[#f5f1eb] rounded-lg">
-              <Globe size={20} className="text-[#8b6f47] mt-0.5 flex-shrink-0" />
+              <Globe
+                size={20}
+                className="text-[#8b6f47] mt-0.5 flex-shrink-0"
+              />
               <div>
-                <p className="text-sm font-medium text-[#3d2817] mb-1">Website</p>
+                <p className="text-sm font-medium text-[#3d2817] mb-1">
+                  Website
+                </p>
                 <a
                   href={church.website}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-[#6b5d4a] hover:text-[#5d4a2f] hover:underline truncate block"
                 >
-                  {church.website.replace(/^https?:\/\//, '')}
+                  {church.website.replace(/^https?:\/\//, "")}
                 </a>
               </div>
             </div>
@@ -116,10 +128,17 @@ const ChurchDetailHeader = ({ church }: ChurchDetailHeaderProps) => {
 
           {church.memberCount && (
             <div className="flex items-start gap-3 p-4 bg-[#f5f1eb] rounded-lg">
-              <Users size={20} className="text-[#8b6f47] mt-0.5 flex-shrink-0" />
+              <Users
+                size={20}
+                className="text-[#8b6f47] mt-0.5 flex-shrink-0"
+              />
               <div>
-                <p className="text-sm font-medium text-[#3d2817] mb-1">Members</p>
-                <p className="text-sm text-[#6b5d4a]">{church.memberCount.toLocaleString()}</p>
+                <p className="text-sm font-medium text-[#3d2817] mb-1">
+                  Members
+                </p>
+                <p className="text-sm text-[#6b5d4a]">
+                  {church.memberCount.toLocaleString()}
+                </p>
               </div>
             </div>
           )}
@@ -130,4 +149,3 @@ const ChurchDetailHeader = ({ church }: ChurchDetailHeaderProps) => {
 };
 
 export default ChurchDetailHeader;
-

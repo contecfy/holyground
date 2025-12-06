@@ -1,14 +1,11 @@
-import QuestionCard from '@/components/common/question-card';
-import { demoQuestions } from '@/lib/demo-data';
-import Button from '@/components/ui/button';
-import SearchBar from '@/components/ui/search-bar';
-import Badge from '@/components/ui/badge';
+import QuestionCard from "@/components/common/question-card";
+import { demoQuestions } from "@/lib/demo-data";
+import Button from "@/components/ui/button";
 
 export default function AppHome() {
   return (
     <div className="max-w-2xl mx-auto">
       {/* Header */}
-     
 
       {/* Questions Feed */}
       <div className="space-y-4">
@@ -29,4 +26,3 @@ export default function AppHome() {
     </div>
   );
 }
-

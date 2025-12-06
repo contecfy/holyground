@@ -8,7 +8,8 @@ import Button from "@/components/ui/button";
 import Badge from "@/components/ui/badge";
 import { Bookmark, BookOpen, MessageSquare, Trash2 } from "lucide-react";
 import SearchBar from "@/components/ui/search-bar";
-import { demoQuestions } from "@/lib/demo-data";
+import { demoQuestions, Question } from "@/lib/demo-data";
+import type { PostCardProps } from "@/components/common/post-card";
 
 type BookmarkType = "all" | "posts" | "verses" | "questions";
 
@@ -16,7 +17,7 @@ interface BookmarkedItem {
   id: string;
   type: "post" | "verse" | "question";
   savedAt: string;
-  data: Record<string, unknown>;
+  data: Question | PostCardProps | Record<string, unknown>;
 }
 
 // Demo bookmarked items
@@ -138,16 +139,25 @@ export default function BookmarksPage() {
     // Filter by search query
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      if (bookmark.type === "verse" && bookmark.data.verse) {
-        return (
-          bookmark.data.verse.text.toLowerCase().includes(query) ||
-          bookmark.data.verse.book.toLowerCase().includes(query) ||
-          bookmark.data.content?.toLowerCase().includes(query)
-        );
-      } else if (bookmark.type === "question" && bookmark.data.question) {
-        return bookmark.data.question.toLowerCase().includes(query);
-      } else if (bookmark.type === "post" && bookmark.data.content) {
-        return bookmark.data.content.toLowerCase().includes(query);
+      if (bookmark.type === "verse") {
+        const data = bookmark.data as PostCardProps;
+        if (data.verse) {
+          return (
+            data.verse.text.toLowerCase().includes(query) ||
+            data.verse.book.toLowerCase().includes(query) ||
+            (data.content && data.content.toLowerCase().includes(query))
+          );
+        }
+      } else if (bookmark.type === "question") {
+        const data = bookmark.data as Question;
+        if (data.question) {
+          return data.question.toLowerCase().includes(query);
+        }
+      } else if (bookmark.type === "post") {
+        const data = bookmark.data as PostCardProps;
+        if (data.content) {
+          return data.content.toLowerCase().includes(query);
+        }
       }
       return false;
     }
@@ -252,7 +262,7 @@ export default function BookmarksPage() {
             if (bookmark.type === "question") {
               return (
                 <div key={bookmark.id} className="relative">
-                  <QuestionCard {...bookmark.data} />
+                  <QuestionCard {...(bookmark.data as Question)} />
                   <div className="absolute top-4 right-4 flex items-center gap-2">
                     <Badge
                       variant="default"
@@ -274,7 +284,7 @@ export default function BookmarksPage() {
             } else if (bookmark.type === "post" || bookmark.type === "verse") {
               return (
                 <div key={bookmark.id} className="relative">
-                  <PostCard {...bookmark.data} />
+                  <PostCard {...(bookmark.data as PostCardProps)} />
                   <div className="absolute top-4 right-4 flex items-center gap-2">
                     <Badge
                       variant="default"

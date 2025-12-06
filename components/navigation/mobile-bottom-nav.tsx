@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Home, Church, PenSquare, Heart, MessageCircle, Search } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Church, PenSquare, Heart, MessageCircle, Search } from "lucide-react";
 
 interface NavItem {
   label: string;
@@ -12,11 +12,15 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Explore', icon: <Search size={20} />, href: '/app' },
-  { label: 'Find Church', icon: <Church size={20} />, href: '/app/find-church' },
-  { label: 'Create', icon: <PenSquare size={20} />, href: '/app/create' },
-  { label: 'Prayer', icon: <Heart size={20} />, href: '/app/prayer' },
-  { label: 'Chat', icon: <MessageCircle size={20} />, href: '/app/chat' },
+  { label: "Explore", icon: <Search size={20} />, href: "/app" },
+  {
+    label: "Find Church",
+    icon: <Church size={20} />,
+    href: "/app/find-church",
+  },
+  { label: "Create", icon: <PenSquare size={20} />, href: "/app/create" },
+  { label: "Prayer", icon: <Heart size={20} />, href: "/app/prayer" },
+  { label: "Chat", icon: <MessageCircle size={20} />, href: "/app/chat" },
 ];
 
 const MobileBottomNav = () => {
@@ -26,15 +30,19 @@ const MobileBottomNav = () => {
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#d4c4b0] md:hidden">
       <div className="flex items-center justify-around h-16">
         {navItems.map((item) => {
-          const isActive = pathname === item.href || (item.href === '/app' && pathname?.startsWith('/app') && pathname === '/app');
+          const isActive =
+            pathname === item.href ||
+            (item.href === "/app" &&
+              pathname?.startsWith("/app") &&
+              pathname === "/app");
           return (
             <Link
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
                 isActive
-                  ? 'text-[#5d4a2f]'
-                  : 'text-[#6b5d4a] hover:text-[#5d4a2f]'
+                  ? "text-[#5d4a2f]"
+                  : "text-[#6b5d4a] hover:text-[#5d4a2f]"
               }`}
             >
               <span className="mb-1">{item.icon}</span>
@@ -51,4 +59,3 @@ const MobileBottomNav = () => {
 };
 
 export default MobileBottomNav;
-

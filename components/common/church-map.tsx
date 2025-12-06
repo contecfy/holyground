@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import { MapPin, X } from 'lucide-react';
-import { Church } from './church-card';
+import React, { useEffect, useRef, useState } from "react";
+import { Church } from "./church-card";
 
 interface ChurchMapProps {
   churches: Church[];
@@ -17,25 +16,28 @@ const ChurchMap = ({
   center,
   selectedChurch,
   onChurchClick,
-  className = ''
+  className = "",
 }: ChurchMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [_userLocation, setUserLocation] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
 
   useEffect(() => {
     // Load Leaflet CSS and JS dynamically
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-    link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
-    link.crossOrigin = '';
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+    link.integrity = "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=";
+    link.crossOrigin = "";
     document.head.appendChild(link);
 
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-    script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
-    script.crossOrigin = '';
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    script.integrity = "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=";
+    script.crossOrigin = "";
     script.onload = () => setMapLoaded(true);
     document.body.appendChild(script);
 
@@ -48,30 +50,31 @@ const ChurchMap = ({
   useEffect(() => {
     if (!mapLoaded || !mapRef.current) return;
 
-    // @ts-ignore - Leaflet loaded from CDN
-    const L = (window as any).L;
+    // @ts-expect-error - Leaflet loaded from CDN
+    const L = (window as unknown as { L: typeof import("leaflet") }).L;
     if (!L) return;
 
     // Initialize map
     const map = L.map(mapRef.current).setView(
-      center || [40.7128, -74.0060], // Default to NYC if no center
+      center || [40.7128, -74.006], // Default to NYC if no center
       13
     );
 
     // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors",
       maxZoom: 19,
     }).addTo(map);
 
     // Add markers for each church
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const markers: any[] = [];
     churches.forEach((church) => {
       const marker = L.marker([church.latitude, church.longitude])
         .addTo(map)
         .bindPopup(`<b>${church.name}</b><br>${church.address}`);
 
-      marker.on('click', () => {
+      marker.on("click", () => {
         if (onChurchClick) {
           onChurchClick(church);
         }
@@ -103,11 +106,11 @@ const ChurchMap = ({
         (position) => {
           const { latitude, longitude } = position.coords;
           setUserLocation({ lat: latitude, lng: longitude });
-          
+
           // Add user location marker
           L.marker([latitude, longitude], {
             icon: L.divIcon({
-              className: 'user-location-marker',
+              className: "user-location-marker",
               html: '<div class="w-4 h-4 bg-blue-500 rounded-full border-2 border-white"></div>',
               iconSize: [16, 16],
             }),
@@ -138,4 +141,3 @@ const ChurchMap = ({
 };
 
 export default ChurchMap;
-
