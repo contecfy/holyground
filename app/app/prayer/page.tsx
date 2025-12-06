@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import { Users, Heart, Radio, UserPlus } from "lucide-react";
-import SearchBar from "@/components/ui/search-bar";
-import Button from "@/components/ui/button";
+import { SearchBar, Button, Tabs } from "@/components/ui";
 import {
   demoPrayerGroups,
   demoLivePrayers,
@@ -18,7 +17,7 @@ import {
 
 export default function PrayerPage() {
   const [activeTab, setActiveTab] = useState<"groups" | "live" | "partners">(
-    "groups"
+    "live"
   );
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -41,71 +40,32 @@ export default function PrayerPage() {
       </div>
 
       {/* Tabs */}
-      <div className="mb-6 hidden md:block">
-        <div className="border-b border-[#e8dfd0] overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
-          <div className="flex gap-2 md:gap-4 w-max md:w-full md:min-w-0">
-            <button
-              onClick={() => setActiveTab("groups")}
-              className={`px-2 md:px-4 py-2 md:py-3 font-medium transition-colors border-b-2 whitespace-nowrap flex-shrink-0 ${
-                activeTab === "groups"
-                  ? "border-[#5d4a2f] text-[#5d4a2f]"
-                  : "border-transparent text-[#6b5d4a] hover:text-[#5d4a2f]"
-              }`}
-            >
-              <div className="flex items-center gap-1.5 md:gap-2">
-                <Users size={16} className="md:w-[18px] md:h-[18px]" />
-                <span className="text-sm md:text-base">Find Prayer Group</span>
-              </div>
-            </button>
-            <button
-              onClick={() => setActiveTab("live")}
-              className={`px-2 md:px-4 py-2 md:py-3 font-medium transition-colors border-b-2 whitespace-nowrap flex-shrink-0 ${
-                activeTab === "live"
-                  ? "border-[#5d4a2f] text-[#5d4a2f]"
-                  : "border-transparent text-[#6b5d4a] hover:text-[#5d4a2f]"
-              }`}
-            >
-              <div className="flex items-center gap-1.5 md:gap-2">
-                <Radio size={16} className="md:w-[18px] md:h-[18px]" />
-                <span className="text-sm md:text-base">Live Prayer</span>
-              </div>
-            </button>
-            <button
-              onClick={() => setActiveTab("partners")}
-              className={`px-2 md:px-4 py-2 md:py-3 font-medium transition-colors border-b-2 whitespace-nowrap flex-shrink-0 ${
-                activeTab === "partners"
-                  ? "border-[#5d4a2f] text-[#5d4a2f]"
-                  : "border-transparent text-[#6b5d4a] hover:text-[#5d4a2f]"
-              }`}
-            >
-              <div className="flex items-center gap-1.5 md:gap-2">
-                <UserPlus size={16} className="md:w-[18px] md:h-[18px]" />
-                <span className="text-sm md:text-base">
-                  Find Prayer Partner
-                </span>
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>
+      <Tabs
+        tabs={[
+          {
+            id: "live",
+            label: "Live Prayer",
+            icon: Radio,
+          },
+          {
+            id: "groups",
+            label: "Prayer Groups",
+            icon: Users,
+          },
+
+          {
+            id: "partners",
+            label: "Prayer Partners",
+            icon: UserPlus,
+          },
+        ]}
+        activeTab={activeTab}
+        onTabChange={(tabId) =>
+          setActiveTab(tabId as "live" | "groups" | "partners")
+        }
+      />
 
       {/* Content based on active tab */}
-      {activeTab === "groups" && (
-        <div>
-          <div className="mb-6">
-            <SearchBar
-              placeholder="Search prayer groups..."
-              value={searchQuery}
-              onChange={setSearchQuery}
-            />
-          </div>
-          <div className="space-y-4">
-            {filteredGroups.map((group) => (
-              <PrayerGroupCard key={group.id} group={group} />
-            ))}
-          </div>
-        </div>
-      )}
 
       {activeTab === "live" && (
         <div>
@@ -128,6 +88,22 @@ export default function PrayerPage() {
           <div className="space-y-4">
             {demoLivePrayers.map((prayer) => (
               <LivePrayerCard key={prayer.id} prayer={prayer} />
+            ))}
+          </div>
+        </div>
+      )}
+      {activeTab === "groups" && (
+        <div>
+          <div className="mb-6">
+            <SearchBar
+              placeholder="Search prayer groups..."
+              value={searchQuery}
+              onChange={setSearchQuery}
+            />
+          </div>
+          <div className="space-y-4">
+            {filteredGroups.map((group) => (
+              <PrayerGroupCard key={group.id} group={group} />
             ))}
           </div>
         </div>

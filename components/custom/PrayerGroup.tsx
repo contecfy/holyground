@@ -11,9 +11,9 @@ export const PrayerGroupCard = ({ group }: { group: PrayerGroup }) => {
       variant="elevated"
       className="p-4 md:p-6 hover:shadow-xl transition-shadow w-full max-w-full overflow-hidden"
     >
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col md:flex-row md:items-stretch gap-4">
         {group.image && (
-          <div className="relative w-full md:w-48 h-48 md:h-full rounded-lg overflow-hidden bg-[#f5f1eb] flex-shrink-0 md:self-stretch">
+          <div className="relative w-full md:w-48 h-48 md:min-h-[300px] md:h-full rounded-lg overflow-hidden bg-[#f5f1eb] flex-shrink-0 md:self-stretch">
             <Image
               src={group.image}
               alt={group.name}

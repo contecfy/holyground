@@ -166,3 +166,78 @@ export const demoPrayerPartners: PrayerPartner[] = [
     bio: "Looking for someone to pray with regularly, especially for breakthrough in spiritual warfare.",
   },
 ];
+
+export const demoPrayerRequests: LivePrayer[] = [
+  {
+    id: "pr1",
+    requester: {
+      name: "Maria Garcia",
+      avatar: undefined,
+    },
+    request:
+      "Please pray for my son who is starting college next week. He's nervous about being away from home and needs God's peace and protection as he begins this new chapter.",
+    timestamp: "3 hours ago",
+    prayerCount: 18,
+    isUrgent: false,
+  },
+  {
+    id: "pr2",
+    requester: {
+      name: "Thomas Anderson",
+      avatar: undefined,
+    },
+    request:
+      "My wife and I are trying to start a family. We've been trying for over a year and would appreciate prayers for God's timing and blessing.",
+    timestamp: "5 hours ago",
+    prayerCount: 32,
+    isUrgent: false,
+  },
+  {
+    id: "pr3",
+    requester: {
+      name: "Lisa Chen",
+      avatar: undefined,
+    },
+    request:
+      "Urgent: My mother was just admitted to the hospital with severe pneumonia. Please pray for her healing and for the doctors' wisdom in her treatment.",
+    timestamp: "6 hours ago",
+    prayerCount: 67,
+    isUrgent: true,
+  },
+  {
+    id: "pr4",
+    requester: {
+      name: "James Wilson",
+      avatar: undefined,
+    },
+    request:
+      "I'm facing financial difficulties and struggling to provide for my family. Please pray for God's provision and for doors of opportunity to open.",
+    timestamp: "1 day ago",
+    prayerCount: 41,
+    isUrgent: false,
+  },
+  {
+    id: "pr5",
+    requester: {
+      name: "Patricia Brown",
+      avatar: undefined,
+    },
+    request:
+      "Praying for my friend who is going through a difficult divorce. She needs God's comfort, strength, and guidance during this painful time.",
+    timestamp: "1 day ago",
+    prayerCount: 29,
+    isUrgent: false,
+  },
+  {
+    id: "pr6",
+    requester: {
+      name: "Daniel Martinez",
+      avatar: undefined,
+    },
+    request:
+      "I'm struggling with addiction and need breakthrough. Please pray for God's deliverance and for strength to overcome this battle.",
+    timestamp: "2 days ago",
+    prayerCount: 55,
+    isUrgent: true,
+  },
+];
