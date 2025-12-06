@@ -200,6 +200,232 @@ export const demoQuestions: Question[] = [
         "Genuine salvation is evidenced by a transformed life, love for God and others, and the fruit of the Spirit...",
     },
   },
+  {
+    id: "7",
+    question:
+      "What does the Bible say about tithing? Is 10% still required today?",
+    author: {
+      name: "Amanda Foster",
+      username: "amandaf",
+      avatar:
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=faces",
+      reputation: 1120,
+      level: 6,
+    },
+    topics: ["giving", "stewardship", "church"],
+    books: ["Malachi", "Matthew", "2 Corinthians"],
+    answerCount: 22,
+    upvotes: 91,
+    views: 678,
+    timestamp: "6 days ago",
+    isAnswered: true,
+    topAnswer: {
+      author: "Pastor John Davis",
+      preview:
+        "While the Old Testament law required a 10% tithe, the New Testament emphasizes cheerful, generous giving from the heart...",
+    },
+  },
+  {
+    id: "8",
+    question:
+      "How can I develop a consistent prayer life? I struggle with staying disciplined.",
+    author: {
+      name: "Thomas Anderson",
+      username: "thomasa",
+      avatar:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces",
+      reputation: 560,
+      level: 3,
+    },
+    topics: ["prayer", "spiritual disciplines", "daily devotionals"],
+    books: ["Matthew", "Luke", "1 Thessalonians"],
+    answerCount: 14,
+    upvotes: 52,
+    views: 389,
+    timestamp: "1 week ago",
+    isAnswered: true,
+    images: [
+      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&h=600&fit=crop",
+    ],
+    topAnswer: {
+      author: "Dr. Elizabeth Thompson",
+      preview:
+        "Building a consistent prayer life starts with small, manageable steps. Set aside a specific time each day, even if it's just 5 minutes...",
+    },
+  },
+  {
+    id: "9",
+    question:
+      "What is the biblical perspective on dating and relationships before marriage?",
+    author: {
+      name: "Rachel Martinez",
+      username: "rachelm",
+      avatar:
+        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&h=200&fit=crop&crop=faces",
+      reputation: 780,
+      level: 4,
+    },
+    topics: ["relationships", "dating", "marriage"],
+    books: ["1 Corinthians", "Song of Solomon", "Ephesians"],
+    answerCount: 19,
+    upvotes: 73,
+    views: 512,
+    timestamp: "1 week ago",
+    isAnswered: true,
+    topAnswer: {
+      author: "Rev. James Wilson",
+      preview:
+        "The Bible doesn't explicitly address modern dating, but provides principles: honor God, maintain purity, seek wisdom, and involve community...",
+    },
+  },
+  {
+    id: "10",
+    question:
+      "Can someone explain the book of Revelation? It's so confusing to me.",
+    author: {
+      name: "Kevin Park",
+      username: "kevinp",
+      avatar:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces",
+      reputation: 290,
+      level: 2,
+    },
+    topics: ["eschatology", "revelation", "end times"],
+    books: ["Revelation", "Daniel", "Matthew"],
+    answerCount: 31,
+    upvotes: 112,
+    views: 945,
+    timestamp: "1 week ago",
+    isAnswered: true,
+    topAnswer: {
+      author: "Theology Professor Mark",
+      preview:
+        "Revelation is apocalyptic literature, using symbolic language to convey spiritual truths. The key is understanding its genre and historical context...",
+    },
+  },
+  {
+    id: "11",
+    question:
+      "How do I deal with doubt in my faith? Is it normal to question God?",
+    author: {
+      name: "Lisa Thompson",
+      username: "lisat",
+      avatar:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=faces",
+      reputation: 920,
+      level: 5,
+    },
+    topics: ["doubt", "faith", "apologetics"],
+    books: ["Mark", "John", "James"],
+    answerCount: 16,
+    upvotes: 64,
+    views: 456,
+    timestamp: "2 weeks ago",
+    isAnswered: false,
+  },
+  {
+    id: "12",
+    question:
+      "What does the Bible teach about forgiveness? How do I forgive someone who hurt me deeply?",
+    author: {
+      name: "Daniel White",
+      username: "danielw",
+      avatar:
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=faces",
+      reputation: 1450,
+      level: 7,
+    },
+    topics: ["forgiveness", "relationships", "healing"],
+    books: ["Matthew", "Ephesians", "Colossians"],
+    answerCount: 20,
+    upvotes: 88,
+    views: 623,
+    timestamp: "2 weeks ago",
+    isAnswered: true,
+    topAnswer: {
+      author: "Pastor Sarah Mitchell",
+      preview:
+        "Forgiveness is a choice, not a feeling. It's releasing the right to get even and trusting God with justice. Remember how much God has forgiven you...",
+    },
+  },
+  {
+    id: "13",
+    question:
+      "Is it okay for Christians to drink alcohol? What does the Bible say?",
+    author: {
+      name: "Christopher Brown",
+      username: "chrisb",
+      avatar:
+        "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=200&h=200&fit=crop&crop=faces",
+      reputation: 680,
+      level: 4,
+    },
+    topics: ["lifestyle", "doctrine", "freedom"],
+    books: ["Romans", "1 Corinthians", "Ephesians"],
+    answerCount: 27,
+    upvotes: 95,
+    views: 712,
+    timestamp: "2 weeks ago",
+    isAnswered: true,
+    images: [
+      "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&h=600&fit=crop",
+    ],
+    topAnswer: {
+      author: "Dr. Elizabeth Thompson",
+      preview:
+        "The Bible doesn't prohibit alcohol, but warns against drunkenness. The key principles are moderation, consideration of others, and avoiding causing others to stumble...",
+    },
+  },
+  {
+    id: "14",
+    question:
+      "What's the difference between the Old Testament and New Testament? Why do we need both?",
+    author: {
+      name: "Nicole Garcia",
+      username: "nicoleg",
+      avatar:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&h=200&fit=crop&crop=faces",
+      reputation: 420,
+      level: 3,
+    },
+    topics: ["bible study", "theology", "doctrine"],
+    books: ["Hebrews", "Galatians", "Romans"],
+    answerCount: 13,
+    upvotes: 48,
+    views: 334,
+    timestamp: "3 weeks ago",
+    isAnswered: true,
+    topAnswer: {
+      author: "Theology Professor Mark",
+      preview:
+        "The Old Testament reveals God's character, establishes the need for a Savior, and contains prophecies fulfilled in Christ. The New Testament reveals the fulfillment...",
+    },
+  },
+  {
+    id: "15",
+    question:
+      "How can I share my faith with friends who aren't interested in Christianity?",
+    author: {
+      name: "Brian Wilson",
+      username: "brianw",
+      avatar:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=faces",
+      reputation: 1030,
+      level: 6,
+    },
+    topics: ["evangelism", "witnessing", "apologetics"],
+    books: ["1 Peter", "Colossians", "Acts"],
+    answerCount: 17,
+    upvotes: 71,
+    views: 498,
+    timestamp: "3 weeks ago",
+    isAnswered: true,
+    topAnswer: {
+      author: "Rev. James Wilson",
+      preview:
+        "The best evangelism is often relational and patient. Build genuine friendships, live out your faith authentically, and be ready to answer questions when asked...",
+    },
+  },
 ];
 
 export const getQuestionById = (id: string): Question | undefined => {
