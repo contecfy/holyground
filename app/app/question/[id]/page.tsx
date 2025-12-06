@@ -73,6 +73,7 @@ export default function QuestionPage() {
           firstName: "User",
           lastName: "",
           displayName: "User",
+          avatar: undefined,
           reputation: 0,
           level: 1,
         };
