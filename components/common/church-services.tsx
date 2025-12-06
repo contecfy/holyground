@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Calendar, Clock } from 'lucide-react';
-import Card from '../ui/card';
+import React from "react";
+import { Calendar, Clock } from "lucide-react";
+import Card from "../ui/card";
 
 interface ChurchServicesProps {
   serviceTimes: string[];
@@ -31,4 +31,3 @@ const ChurchServices = ({ serviceTimes }: ChurchServicesProps) => {
 };
 
 export default ChurchServices;
-

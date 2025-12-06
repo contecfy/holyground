@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import Button from '../ui/button';
+import React from "react";
+import Link from "next/link";
+import Button from "../ui/button";
+import Image from "next/image";
 
 const Header = () => {
   return (
@@ -11,36 +12,55 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#5d4a2f] to-[#8b6f47] rounded-lg flex items-center justify-center shadow-md">
-              <span className="text-white text-xl font-bold">✝</span>
-            </div>
+            <Image src="/logo.png" alt="yalor" width={60} height={60} />
             <div>
-              <h1 className="text-2xl font-bold text-[#3d2817] tracking-wide">HolyGround</h1>
-              <p className="text-xs text-[#6b5d4a] -mt-1">A Bible Social Community</p>
+              <h1 className="text-2xl font-bold text-[#3d2817] tracking-wide">
+                yalor
+              </h1>
+              <p className="text-xs text-[#6b5d4a] -mt-1">
+                A Bible Social Community
+              </p>
             </div>
           </div>
 
           {/* Navigation Links */}
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#features" className="text-[#6b5d4a] hover:text-[#5d4a2f] font-medium transition-colors">
+            <Link
+              href="/feature"
+              className="text-[#6b5d4a] hover:text-[#5d4a2f] font-medium transition-colors"
+            >
               Features
-            </a>
-            <a href="#how-it-works" className="text-[#6b5d4a] hover:text-[#5d4a2f] font-medium transition-colors">
+            </Link>
+            <a
+              href="#how-it-works"
+              className="text-[#6b5d4a] hover:text-[#5d4a2f] font-medium transition-colors"
+            >
               How It Works
             </a>
-            <a href="#testimonials" className="text-[#6b5d4a] hover:text-[#5d4a2f] font-medium transition-colors">
+            <a
+              href="#testimonials"
+              className="text-[#6b5d4a] hover:text-[#5d4a2f] font-medium transition-colors"
+            >
               Community
             </a>
+            <Link
+              href="/about"
+              className="text-[#6b5d4a] hover:text-[#5d4a2f] font-medium transition-colors"
+            >
+              About
+            </Link>
           </nav>
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <Button
-              buttonType="secondary"
-              buttonVariant="outline"
-              buttonSize="small"
-              buttonText="Sign In"
-            />
+            <Link href="/login">
+              <Button
+                buttonType="secondary"
+                buttonVariant="outline"
+                buttonSize="small"
+                buttonText="Sign In"
+              />
+            </Link>
             <Link href="/app">
               <Button
                 buttonType="primary"

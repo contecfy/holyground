@@ -1,10 +1,11 @@
-# HolyGround Components
+# Yalor Components
 
-A collection of reusable components for the HolyGround Bible social media app, featuring a beautiful color palette inspired by aged Bible paper.
+A collection of reusable components for the Yalor Bible social media app, featuring a beautiful color palette inspired by aged Bible paper.
 
 ## Color Palette
 
 The components use a carefully crafted color scheme:
+
 - **Background**: Soft cream/white (`#faf8f5`)
 - **Paper tones**: Light (`#f5f1eb`), Medium (`#e8dfd0`), Dark (`#d4c4b0`)
 - **Browns**: Light (`#c9a882`), Medium (`#8b6f47`), Dark (`#5d4a2f`), Darker (`#3d2817`)
@@ -15,10 +16,11 @@ The components use a carefully crafted color scheme:
 ### UI Components (`/ui`)
 
 #### Button
+
 A versatile button component with multiple variants, sizes, and types.
 
 ```tsx
-import { Button } from '@/components/ui';
+import { Button } from "@/components/ui";
 
 <Button
   buttonType="primary"
@@ -28,35 +30,33 @@ import { Button } from '@/components/ui';
   buttonText="Click Me"
   buttonIcon={<span>❤️</span>}
   iconPosition="left"
-/>
+/>;
 ```
 
 #### Avatar
+
 User profile avatars with status indicators.
 
 ```tsx
-import { Avatar } from '@/components/ui';
+import { Avatar } from "@/components/ui";
 
-<Avatar
-  src="/avatar.jpg"
-  name="John Doe"
-  size="md"
-  status="online"
-/>
+<Avatar src="/avatar.jpg" name="John Doe" size="md" status="online" />;
 ```
 
 #### Card
+
 Container component with multiple variants.
 
 ```tsx
-import { Card } from '@/components/ui';
+import { Card } from "@/components/ui";
 
 <Card variant="paper">
   <p>Your content here</p>
-</Card>
+</Card>;
 ```
 
 #### Input & Textarea
+
 Form input components with variants and icons.
 
 ```tsx
@@ -77,41 +77,44 @@ import { Input, Textarea } from '@/components/ui';
 ```
 
 #### Badge
+
 Small label component for tags and categories.
 
 ```tsx
-import { Badge } from '@/components/ui';
+import { Badge } from "@/components/ui";
 
 <Badge variant="primary" size="md">
   New Testament
-</Badge>
+</Badge>;
 ```
 
 #### SearchBar
+
 Search input with icon and search functionality.
 
 ```tsx
-import { SearchBar } from '@/components/ui';
+import { SearchBar } from "@/components/ui";
 
 <SearchBar
   placeholder="Search verses..."
   onSearch={(value) => console.log(value)}
-/>
+/>;
 ```
 
 ### Common Components (`/common`)
 
 #### PostCard
+
 Social media post component with verse support.
 
 ```tsx
-import { PostCard } from '@/components/common';
+import { PostCard } from "@/components/common";
 
 <PostCard
   author={{
     name: "John Doe",
     username: "johndoe",
-    avatar: "/avatar.jpg"
+    avatar: "/avatar.jpg",
   }}
   content="This is a beautiful verse that touched my heart."
   timestamp="2 hours ago"
@@ -122,16 +125,17 @@ import { PostCard } from '@/components/common';
     book: "John",
     chapter: 3,
     verse: 16,
-    text: "For God so loved the world..."
+    text: "For God so loved the world...",
   }}
-/>
+/>;
 ```
 
 #### VerseCard
+
 Dedicated component for displaying Bible verses beautifully.
 
 ```tsx
-import { VerseCard } from '@/components/common';
+import { VerseCard } from "@/components/common";
 
 <VerseCard
   book="John"
@@ -141,33 +145,35 @@ import { VerseCard } from '@/components/common';
   translation="NIV"
   onShare={() => {}}
   onSave={() => {}}
-/>
+/>;
 ```
 
 #### CreatePost
+
 Component for creating new posts.
 
 ```tsx
-import { CreatePost } from '@/components/common';
+import { CreatePost } from "@/components/common";
 
 <CreatePost
   user={{
     name: "John Doe",
-    avatar: "/avatar.jpg"
+    avatar: "/avatar.jpg",
   }}
   onSubmit={(content) => console.log(content)}
-/>
+/>;
 ```
 
 ### Navigation Components (`/navigation`)
 
 #### Header
+
 Main navigation header with logo and menu.
 
 ```tsx
-import { Header } from '@/components/navigation';
+import { Header } from "@/components/navigation";
 
-<Header />
+<Header />;
 ```
 
 ## Usage Examples
@@ -175,9 +181,9 @@ import { Header } from '@/components/navigation';
 ### Complete Feed Page
 
 ```tsx
-import { Header } from '@/components/navigation';
-import { CreatePost, PostCard } from '@/components/common';
-import { SearchBar } from '@/components/ui';
+import { Header } from "@/components/navigation";
+import { CreatePost, PostCard } from "@/components/common";
+import { SearchBar } from "@/components/ui";
 
 export default function FeedPage() {
   return (
@@ -193,7 +199,7 @@ export default function FeedPage() {
           author={{
             name: "Sarah Smith",
             username: "sarahsmith",
-            avatar: "/sarah.jpg"
+            avatar: "/sarah.jpg",
           }}
           content="Meditating on this verse today..."
           timestamp="1 hour ago"
@@ -203,7 +209,7 @@ export default function FeedPage() {
             book: "Philippians",
             chapter: 4,
             verse: 6,
-            text: "Do not be anxious about anything..."
+            text: "Do not be anxious about anything...",
           }}
         />
       </main>
@@ -222,4 +228,3 @@ All components use Tailwind CSS with custom colors defined in `app/globals.css`.
 - Components are designed to be accessible and responsive
 - The design emphasizes readability and a peaceful aesthetic
 - Custom scrollbar styling matches the Bible theme
-

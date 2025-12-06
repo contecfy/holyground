@@ -1,24 +1,25 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { Mail } from 'lucide-react';
-import Button from '@/components/ui/button';
-import Input from '@/components/ui/input';
+import React, { useState } from "react";
+import Link from "next/link";
+import { Mail } from "lucide-react";
+import Button from "@/components/ui/button";
+import Input from "@/components/ui/input";
+import Image from "next/image";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isEmailMode, setIsEmailMode] = useState(false);
 
   const handleGoogleSignIn = () => {
     // TODO: Implement Google OAuth
-    console.log('Sign in with Google');
+    console.log("Sign in with Google");
   };
 
   const handleEmailSignIn = () => {
     if (email.trim()) {
       // TODO: Implement email sign in
-      console.log('Sign in with email:', email);
+      console.log("Sign in with email:", email);
     }
   };
 
@@ -33,21 +34,21 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <div className="w-16 h-16 bg-gradient-to-br from-[#5d4a2f] to-[#8b6f47] rounded-lg flex items-center justify-center shadow-md mb-4">
-            <span className="text-white text-3xl font-bold">✝</span>
-          </div>
-          <h1 className="text-2xl font-bold text-[#3d2817] tracking-wide">HolyGround</h1>
+          <Image src="/logo.png" alt="yalor" width={100} height={100} />
+          <h1 className="text-2xl font-bold text-[#3d2817] tracking-wide">
+            yalor
+          </h1>
         </div>
 
         {/* Main Content */}
         <div className="bg-white rounded-lg">
           <h2 className="text-2xl font-semibold text-[#3d2817] mb-2 text-center">
-            {isEmailMode ? 'Welcome back' : 'Welcome back'}
+            {isEmailMode ? "Welcome back" : "Welcome back"}
           </h2>
           <p className="text-sm text-[#6b5d4a] mb-8 text-center">
-            {isEmailMode 
-              ? 'Enter your email to continue' 
-              : 'Sign in to continue to HolyGround'}
+            {isEmailMode
+              ? "Enter your email to continue"
+              : "Sign in to continue to yalor"}
           </p>
 
           {!isEmailMode ? (
@@ -113,7 +114,9 @@ export default function LoginPage() {
           ) : (
             <div className="space-y-4">
               <div className="p-4 bg-[#f5f1eb] rounded-lg border border-[#e8dfd0]">
-                <p className="text-sm text-[#3d2817] font-medium mb-1">{email}</p>
+                <p className="text-sm text-[#3d2817] font-medium mb-1">
+                  {email}
+                </p>
                 <button
                   onClick={() => setIsEmailMode(false)}
                   className="text-xs text-[#6b5d4a] hover:text-[#5d4a2f] underline"
@@ -137,7 +140,10 @@ export default function LoginPage() {
                   />
                   <span className="text-[#6b5d4a]">Remember me</span>
                 </label>
-                <Link href="/forgot-password" className="text-[#5d4a2f] hover:underline">
+                <Link
+                  href="/forgot-password"
+                  className="text-[#5d4a2f] hover:underline"
+                >
                   Forgot password?
                 </Link>
               </div>
@@ -164,8 +170,11 @@ export default function LoginPage() {
           {/* Sign Up Link */}
           <div className="mt-6 text-center">
             <p className="text-sm text-[#6b5d4a]">
-              Don't have an account?{' '}
-              <Link href="/signup" className="text-[#5d4a2f] hover:underline font-medium">
+              Don&apos;t have an account?{" "}
+              <Link
+                href="/signup"
+                className="text-[#5d4a2f] hover:underline font-medium"
+              >
                 Sign up
               </Link>
             </p>
@@ -175,15 +184,24 @@ export default function LoginPage() {
         {/* Footer Links */}
         <div className="mt-8 text-center">
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-[#6b5d4a]">
-            <Link href="/terms" className="hover:text-[#5d4a2f] hover:underline">
+            <Link
+              href="/terms"
+              className="hover:text-[#5d4a2f] hover:underline"
+            >
               Terms of Service
             </Link>
             <span>•</span>
-            <Link href="/privacy" className="hover:text-[#5d4a2f] hover:underline">
+            <Link
+              href="/privacy"
+              className="hover:text-[#5d4a2f] hover:underline"
+            >
               Privacy Policy
             </Link>
             <span>•</span>
-            <Link href="/contact" className="hover:text-[#5d4a2f] hover:underline">
+            <Link
+              href="/contact"
+              className="hover:text-[#5d4a2f] hover:underline"
+            >
               Contact
             </Link>
           </div>
@@ -192,4 +210,3 @@ export default function LoginPage() {
     </div>
   );
 }
-

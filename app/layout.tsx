@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/navigation/header";
-import Footer from "@/components/navigation/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,38 +12,50 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://holyground.app';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://yalor.app";
 
 export const metadata: Metadata = {
-  title: "HolyGround - A Bible Social Community",
-  description: "Connect, share, and grow in faith. HolyGround is a social media platform designed for believers to share Bible verses, reflections, and build meaningful Christian community.",
-  keywords: ["Bible", "Christian", "Social Media", "Faith", "Community", "Prayer", "Bible Study", "Church"],
-  authors: [{ name: "HolyGround" }],
-  creator: "HolyGround",
-  publisher: "HolyGround",
+  title: "yalor - A Bible Social Community",
+  description:
+    "Connect, share, and grow in faith. yalor is a social media platform designed for believers to share Bible verses, reflections, and build meaningful Christian community.",
+  keywords: [
+    "Bible",
+    "Christian",
+    "Social Media",
+    "Faith",
+    "Community",
+    "Prayer",
+    "Bible Study",
+    "Church",
+  ],
+  authors: [{ name: "yalor" }],
+  creator: "yalor",
+  publisher: "yalor",
   metadataBase: new URL(baseUrl),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: baseUrl,
-    siteName: "HolyGround",
-    title: "HolyGround - A Bible Social Community",
-    description: "Connect, share, and grow in faith. HolyGround is a social media platform designed for believers to share Bible verses, reflections, and build meaningful Christian community.",
+    siteName: "yalor",
+    title: "yalor - A Bible Social Community",
+    description:
+      "Connect, share, and grow in faith. yalor is a social media platform designed for believers to share Bible verses, reflections, and build meaningful Christian community.",
     images: [
       {
         url: "/images/christians-praying.jpg",
         width: 1200,
         height: 630,
-        alt: "HolyGround - A Bible Social Community",
+        alt: "yalor - A Bible Social Community",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "HolyGround - A Bible Social Community",
-    description: "Connect, share, and grow in faith. HolyGround is a social media platform designed for believers to share Bible verses, reflections, and build meaningful Christian community.",
+    title: "yalor - A Bible Social Community",
+    description:
+      "Connect, share, and grow in faith. yalor is a social media platform designed for believers to share Bible verses, reflections, and build meaningful Christian community.",
     images: ["/images/christians-praying.jpg"],
-    creator: "@holyground",
+    creator: "@yalor",
   },
   robots: {
     index: true,
@@ -82,7 +92,6 @@ export default function RootLayout({
       >
         {/* <Header /> */}
         {children}
-       
       </body>
     </html>
   );

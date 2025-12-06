@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { ExternalLink } from 'lucide-react';
-import { Church } from './church-card';
-import ChurchMap from './church-map';
-import Card from '../ui/card';
-import Button from '../ui/button';
+import React from "react";
+import { ExternalLink } from "lucide-react";
+import { Church } from "./church-card";
+import ChurchMap from "./church-map";
+import Card from "../ui/card";
+import Button from "../ui/button";
 
 interface ChurchLocationMapProps {
   church: Church;
@@ -16,7 +16,6 @@ const ChurchLocationMap = ({ church }: ChurchLocationMapProps) => {
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     `${church.latitude},${church.longitude}`
   )}`;
-  const openStreetMapUrl = `https://www.openstreetmap.org/?mlat=${church.latitude}&mlon=${church.longitude}&zoom=15`;
 
   return (
     <Card variant="paper" className="p-6">
@@ -48,4 +47,3 @@ const ChurchLocationMap = ({ church }: ChurchLocationMapProps) => {
 };
 
 export default ChurchLocationMap;
-

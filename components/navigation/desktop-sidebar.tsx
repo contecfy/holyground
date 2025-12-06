@@ -1,13 +1,25 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Home, Church, BookOpen, Bell, Bookmark, User, PenSquare, Heart, MessageCircle, Users, Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import Avatar from '../ui/avatar';
-import Button from '../ui/button';
-import Image from 'next/image';
-import { useSidebar } from '@/contexts/sidebar-context';
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Church,
+  BookOpen,
+  Bell,
+  Bookmark,
+  PenSquare,
+  Heart,
+  MessageCircle,
+  Users,
+  Search,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import Avatar from "../ui/avatar";
+import Button from "../ui/button";
+import Image from "next/image";
+import { useSidebar } from "@/contexts/sidebar-context";
 
 interface NavItem {
   label: string;
@@ -16,13 +28,21 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Explore', icon: <Search size={20} />, href: '/app' },
-  { label: 'Find Church', icon: <Church size={20} />, href: '/app/find-church' },
-  { label: 'Prayer', icon: <Heart size={20} />, href: '/app/prayer' },
-  { label: 'Chat', icon: <MessageCircle size={20} />, href: '/app/chat' },
-  { label: 'Spaces', icon: <BookOpen size={20} />, href: '/app/spaces' },
-  { label: 'Notifications', icon: <Bell size={20} />, href: '/app/notifications' },
-  { label: 'Bookmarks', icon: <Bookmark size={20} />, href: '/app/bookmarks' },
+  { label: "Explore", icon: <Search size={20} />, href: "/app" },
+  {
+    label: "Find Church",
+    icon: <Church size={20} />,
+    href: "/app/find-church",
+  },
+  { label: "Prayer", icon: <Heart size={20} />, href: "/app/prayer" },
+  { label: "Chat", icon: <MessageCircle size={20} />, href: "/app/chat" },
+  { label: "Spaces", icon: <BookOpen size={20} />, href: "/app/spaces" },
+  {
+    label: "Notifications",
+    icon: <Bell size={20} />,
+    href: "/app/notifications",
+  },
+  { label: "Bookmarks", icon: <Bookmark size={20} />, href: "/app/bookmarks" },
 ];
 
 const DesktopSidebar = () => {
@@ -30,22 +50,29 @@ const DesktopSidebar = () => {
   const { isCollapsed, toggleSidebar } = useSidebar();
 
   return (
-    <aside className={`hidden md:flex flex-col h-screen sticky top-0 border-r border-[#d4c4b0] bg-white transition-all duration-300 ${
-      isCollapsed ? 'w-20' : 'w-64'
-    }`}>
+    <aside
+      className={`hidden md:flex flex-col h-screen sticky top-0 border-r border-[#d4c4b0] bg-white transition-all duration-300 ${
+        isCollapsed ? "w-20" : "w-64"
+      }`}
+    >
       {/* Logo */}
       <div className="p-4 border-b border-[#d4c4b0] relative">
-        <Link href="/app" className={`flex items-center gap-3 ${isCollapsed ? 'justify-center' : ''}`}>
-          <Image 
-            src="/logo.png" 
-            alt="HolyGround" 
-            width={isCollapsed ? 40 : 80} 
+        <Link
+          href="/app"
+          className={`flex items-center gap-3 ${isCollapsed ? "justify-center" : ""}`}
+        >
+          <Image
+            src="/logo.png"
+            alt="yalor"
+            width={isCollapsed ? 40 : 80}
             height={isCollapsed ? 40 : 80}
             className="flex-shrink-0"
           />
           {!isCollapsed && (
             <div>
-              <h1 className="text-xl font-bold text-[#3d2817] tracking-wide">HolyGround</h1>
+              <h1 className="text-xl font-bold text-[#3d2817] tracking-wide">
+                yalor
+              </h1>
               <p className="text-xs text-[#6b5d4a] -mt-1">Bible Q&A</p>
             </div>
           )}
@@ -54,7 +81,7 @@ const DesktopSidebar = () => {
         <button
           onClick={toggleSidebar}
           className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white border border-[#d4c4b0] rounded-full flex items-center justify-center hover:bg-[#f5f1eb] transition-colors shadow-sm z-10"
-          aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {isCollapsed ? (
             <ChevronRight size={14} className="text-[#6b5d4a]" />
@@ -74,9 +101,9 @@ const DesktopSidebar = () => {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors group relative ${
                 isActive
-                  ? 'bg-[#f5f1eb] text-[#5d4a2f] font-semibold'
-                  : 'text-[#6b5d4a] hover:bg-[#f5f1eb] hover:text-[#5d4a2f]'
-              } ${isCollapsed ? 'justify-center' : ''}`}
+                  ? "bg-[#f5f1eb] text-[#5d4a2f] font-semibold"
+                  : "text-[#6b5d4a] hover:bg-[#f5f1eb] hover:text-[#5d4a2f]"
+              } ${isCollapsed ? "justify-center" : ""}`}
               title={isCollapsed ? item.label : undefined}
             >
               <span className="flex-shrink-0">{item.icon}</span>
@@ -93,12 +120,17 @@ const DesktopSidebar = () => {
         {/* Your Spaces Section */}
         {!isCollapsed && (
           <div className="pt-4 mt-4 border-t border-[#e8dfd0]">
-            <h3 className="text-xs font-semibold text-[#6b5d4a] uppercase tracking-wide mb-3 px-4">Your Spaces</h3>
+            <h3 className="text-xs font-semibold text-[#6b5d4a] uppercase tracking-wide mb-3 px-4">
+              Your Spaces
+            </h3>
             <div className="space-y-1">
               {[
-                { name: 'Bible Study Group', href: '/app/spaces/bible-study' },
-                { name: 'Prayer Warriors', href: '/app/spaces/prayer-warriors' },
-                { name: 'Young Adults', href: '/app/spaces/young-adults' },
+                { name: "Bible Study Group", href: "/app/spaces/bible-study" },
+                {
+                  name: "Prayer Warriors",
+                  href: "/app/spaces/prayer-warriors",
+                },
+                { name: "Young Adults", href: "/app/spaces/young-adults" },
               ].map((space) => (
                 <Link
                   key={space.href}
@@ -116,11 +148,19 @@ const DesktopSidebar = () => {
         {/* Prayer Groups Section */}
         {!isCollapsed && (
           <div className="pt-4 border-t border-[#e8dfd0]">
-            <h3 className="text-xs font-semibold text-[#6b5d4a] uppercase tracking-wide mb-3 px-4">Prayer Groups</h3>
+            <h3 className="text-xs font-semibold text-[#6b5d4a] uppercase tracking-wide mb-3 px-4">
+              Prayer Groups
+            </h3>
             <div className="space-y-1">
               {[
-                { name: 'Morning Prayer Circle', href: '/app/prayer/morning-circle' },
-                { name: 'Intercessory Prayer', href: '/app/prayer/intercessory' },
+                {
+                  name: "Morning Prayer Circle",
+                  href: "/app/prayer/morning-circle",
+                },
+                {
+                  name: "Intercessory Prayer",
+                  href: "/app/prayer/intercessory",
+                },
               ].map((group) => (
                 <Link
                   key={group.href}
@@ -138,11 +178,21 @@ const DesktopSidebar = () => {
         {/* Prayer Partners Section */}
         {!isCollapsed && (
           <div className="pt-4 border-t border-[#e8dfd0]">
-            <h3 className="text-xs font-semibold text-[#6b5d4a] uppercase tracking-wide mb-3 px-4">Prayer Partners</h3>
+            <h3 className="text-xs font-semibold text-[#6b5d4a] uppercase tracking-wide mb-3 px-4">
+              Prayer Partners
+            </h3>
             <div className="space-y-1">
               {[
-                { name: 'John Doe', username: 'johndoe', href: '/app/profile/johndoe' },
-                { name: 'Jane Smith', username: 'janesmith', href: '/app/profile/janesmith' },
+                {
+                  name: "John Doe",
+                  username: "johndoe",
+                  href: "/app/profile/johndoe",
+                },
+                {
+                  name: "Jane Smith",
+                  username: "janesmith",
+                  href: "/app/profile/janesmith",
+                },
               ].map((partner) => (
                 <Link
                   key={partner.href}
@@ -151,8 +201,12 @@ const DesktopSidebar = () => {
                 >
                   <Users size={16} />
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-[#3d2817] truncate">{partner.name}</p>
-                    <p className="text-xs text-[#6b5d4a]">@{partner.username}</p>
+                    <p className="font-medium text-[#3d2817] truncate">
+                      {partner.name}
+                    </p>
+                    <p className="text-xs text-[#6b5d4a]">
+                      @{partner.username}
+                    </p>
                   </div>
                 </Link>
               ))}
@@ -163,11 +217,19 @@ const DesktopSidebar = () => {
         {/* Churches Section */}
         {!isCollapsed && (
           <div className="pt-4 border-t border-[#e8dfd0]">
-            <h3 className="text-xs font-semibold text-[#6b5d4a] uppercase tracking-wide mb-3 px-4">Your Churches</h3>
+            <h3 className="text-xs font-semibold text-[#6b5d4a] uppercase tracking-wide mb-3 px-4">
+              Your Churches
+            </h3>
             <div className="space-y-1">
               {[
-                { name: 'Grace Community Church', href: '/app/church/grace-community' },
-                { name: 'First Baptist Church', href: '/app/church/first-baptist' },
+                {
+                  name: "Grace Community Church",
+                  href: "/app/church/grace-community",
+                },
+                {
+                  name: "First Baptist Church",
+                  href: "/app/church/first-baptist",
+                },
               ].map((church) => (
                 <Link
                   key={church.href}
@@ -185,7 +247,7 @@ const DesktopSidebar = () => {
 
       {/* Create Button */}
       <div className="p-4 border-t border-[#d4c4b0]">
-        <Link href="/app/create" title={isCollapsed ? 'Create' : undefined}>
+        <Link href="/app/create" title={isCollapsed ? "Create" : undefined}>
           {isCollapsed ? (
             <button className="w-full p-3 bg-[#5d4a2f] text-white rounded-lg hover:bg-[#3d2817] transition-colors flex items-center justify-center">
               <PenSquare size={20} />
@@ -205,15 +267,17 @@ const DesktopSidebar = () => {
 
       {/* User Profile */}
       <div className="p-4 border-t border-[#d4c4b0]">
-        <Link 
-          href="/app/profile" 
-          className={`flex items-center gap-3 p-2 rounded-lg hover:bg-[#f5f1eb] transition-colors group relative ${isCollapsed ? 'justify-center' : ''}`}
-          title={isCollapsed ? 'Your Profile' : undefined}
+        <Link
+          href="/app/profile"
+          className={`flex items-center gap-3 p-2 rounded-lg hover:bg-[#f5f1eb] transition-colors group relative ${isCollapsed ? "justify-center" : ""}`}
+          title={isCollapsed ? "Your Profile" : undefined}
         >
           <Avatar name="You" size={isCollapsed ? "sm" : "md"} />
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-[#3d2817] truncate">Your Profile</p>
+              <p className="font-semibold text-[#3d2817] truncate">
+                Your Profile
+              </p>
               <p className="text-xs text-[#6b5d4a]">Level 5 • 1.2k Rep</p>
             </div>
           )}
@@ -229,4 +293,3 @@ const DesktopSidebar = () => {
 };
 
 export default DesktopSidebar;
-
