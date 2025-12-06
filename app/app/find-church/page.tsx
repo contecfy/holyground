@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { X, MapPin, Phone, Users } from "lucide-react";
+import { X, MapPin, Phone, Users, Search } from "lucide-react";
 import Link from "next/link";
 import ChurchCard, { Church } from "@/components/common/church-card";
 import ChurchMap from "@/components/common/church-map";
 import ChurchFilters from "@/components/common/church-filters";
+import Input from "@/components/ui/input";
 import Card from "@/components/ui/card";
 
 // Kampala, Uganda coordinates: 0.3476° N, 32.5825° E
@@ -169,22 +170,73 @@ export default function FindChurchPage() {
         {/* Middle Column - Filters (Mobile) & Church List */}
         <div className="lg:col-span-4 space-y-3 md:space-y-4 lg:space-y-6 w-full min-w-0">
           {/* Filters - Mobile Only */}
-          <div className="lg:hidden">
-            <Card variant="paper" className="p-4">
-              <ChurchFilters
-                searchQuery={searchQuery}
-                onSearchChange={setSearchQuery}
-                selectedDenomination={selectedDenomination}
-                onDenominationChange={setSelectedDenomination}
-                showMap={showMap}
-                onToggleMap={() => {
+          <div className="lg:hidden space-y-3">
+            {/* Search Input and Show Map on same line */}
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <Input
+                  placeholder="Search churches..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  variant="filled"
+                  leftIcon={<Search size={18} className="text-[#6b5d4a]" />}
+                />
+              </div>
+              <button
+                onClick={() => {
                   setShowMap(!showMap);
                   if (showMap) {
                     setSelectedChurch(null);
                   }
                 }}
-              />
-            </Card>
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0 ${
+                  showMap
+                    ? "bg-[#5d4a2f] text-white"
+                    : "bg-[#f5f1eb] text-[#6b5d4a] hover:bg-[#e8dfd0]"
+                }`}
+              >
+                <MapPin size={16} />
+                {showMap ? "Hide Map" : "Show Map"}
+              </button>
+            </div>
+
+            {/* Header Row: Church label */}
+            <div>
+              <h2 className="text-lg font-semibold text-[#3d2817]">Church</h2>
+            </div>
+
+            {/* Scrollable Filter Chips */}
+            <div className="overflow-x-auto scrollbar-hide -mx-4 px-4">
+              <div className="flex gap-2 w-max min-w-full">
+                {[
+                  "Baptist",
+                  "Catholic",
+                  "Methodist",
+                  "Presbyterian",
+                  "Lutheran",
+                  "Pentecostal",
+                  "Anglican",
+                  "Non-denominational",
+                  "Other",
+                ].map((denom) => (
+                  <button
+                    key={denom}
+                    onClick={() =>
+                      setSelectedDenomination(
+                        selectedDenomination === denom ? null : denom
+                      )
+                    }
+                    className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+                      selectedDenomination === denom
+                        ? "bg-[#5d4a2f] text-white"
+                        : "bg-[#f5f1eb] text-[#6b5d4a] hover:bg-[#e8dfd0]"
+                    }`}
+                  >
+                    {denom}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Results Count */}

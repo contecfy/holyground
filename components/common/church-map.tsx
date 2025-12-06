@@ -19,6 +19,9 @@ const ChurchMap = ({
   className = "",
 }: ChurchMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const mapInstanceRef = useRef<any>(null);
+  const isMountedRef = useRef(true);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [_userLocation, setUserLocation] = useState<{
     lat: number;
@@ -48,17 +51,23 @@ const ChurchMap = ({
   }, []);
 
   useEffect(() => {
+    isMountedRef.current = true;
+
     if (!mapLoaded || !mapRef.current) return;
 
     // @ts-expect-error - Leaflet loaded from CDN
     const L = (window as unknown as { L: typeof import("leaflet") }).L;
     if (!L) return;
 
+    // Check if mapRef is still valid
+    if (!mapRef.current) return;
+
     // Initialize map
     const map = L.map(mapRef.current).setView(
       center || [40.7128, -74.006], // Default to NYC if no center
       13
     );
+    mapInstanceRef.current = map;
 
     // Add OpenStreetMap tiles
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -104,17 +113,31 @@ const ChurchMap = ({
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const { latitude, longitude } = position.coords;
-          setUserLocation({ lat: latitude, lng: longitude });
+          // Check if component is still mounted and map still exists
+          if (
+            !isMountedRef.current ||
+            !mapInstanceRef.current ||
+            !mapRef.current
+          ) {
+            return;
+          }
 
-          // Add user location marker
-          L.marker([latitude, longitude], {
-            icon: L.divIcon({
-              className: "user-location-marker",
-              html: '<div class="w-4 h-4 bg-blue-500 rounded-full border-2 border-white"></div>',
-              iconSize: [16, 16],
-            }),
-          }).addTo(map);
+          try {
+            const { latitude, longitude } = position.coords;
+            setUserLocation({ lat: latitude, lng: longitude });
+
+            // Add user location marker
+            L.marker([latitude, longitude], {
+              icon: L.divIcon({
+                className: "user-location-marker",
+                html: '<div class="w-4 h-4 bg-blue-500 rounded-full border-2 border-white"></div>',
+                iconSize: [16, 16],
+              }),
+            }).addTo(mapInstanceRef.current);
+          } catch (error) {
+            // Silently handle errors when adding marker
+            console.error("Error adding user location marker:", error);
+          }
         },
         () => {
           // User denied location or error
@@ -123,7 +146,16 @@ const ChurchMap = ({
     }
 
     return () => {
-      map.remove();
+      isMountedRef.current = false;
+      try {
+        if (mapInstanceRef.current && mapInstanceRef.current.remove) {
+          mapInstanceRef.current.remove();
+          mapInstanceRef.current = null;
+        }
+      } catch (error) {
+        // Silently handle cleanup errors
+        console.error("Error removing map:", error);
+      }
     };
   }, [mapLoaded, churches, center, selectedChurch, onChurchClick]);
 

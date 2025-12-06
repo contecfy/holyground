@@ -58,7 +58,7 @@ const QuestionCard = ({
 
   return (
     <Link href={`/app/question/${id}`}>
-      <div className="py-4 px-4 hover:bg-[#f5f1eb]/50 transition-colors cursor-pointer group border-t border-b border-[#e8dfd0]/80 first:border-t-0">
+      <div className="py-4 px-0 md:px-4 hover:bg-[#f5f1eb]/50 transition-colors cursor-pointer group border-t border-b border-[#e8dfd0]/80 first:border-t-0">
         {/* Header */}
         <div className="flex items-start justify-between mb-3">
           <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -107,7 +107,7 @@ const QuestionCard = ({
         </div>
 
         {/* Question */}
-        <h2 className="text-lg md:text-xl font-bold text-[#3d2817] mb-3 leading-tight hover:text-[#5d4a2f] transition-colors">
+        <h2 className="text-sm md:text-xl font-bold text-[#3d2817] mb-3 leading-tight hover:text-[#5d4a2f] transition-colors">
           {question}
         </h2>
 
@@ -228,13 +228,11 @@ const QuestionCard = ({
             className="flex items-center gap-1 hover:text-[#5d4a2f] transition-colors"
           >
             <ArrowUpWideNarrow size={16} />
-            <span className="font-medium">{upvotes}</span>
+            <span className="font-medium text-sm">{upvotes}</span>
           </button>
           <div className="flex items-center gap-1">
             <MessageCircle size={16} />
-            <span className="font-medium">
-              {answerCount} {answerCount === 1 ? "answer" : "answers"}
-            </span>
+            <span className="font-medium text-sm">{answerCount}</span>
           </div>
           <div className="flex items-center gap-1">
             <Eye size={16} />

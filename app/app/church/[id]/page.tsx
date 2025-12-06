@@ -3,13 +3,23 @@
 import React, { useMemo } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Mail } from "lucide-react";
+import Image from "next/image";
+import {
+  ArrowLeft,
+  Mail,
+  MapPin,
+  Users,
+  Phone,
+  Globe,
+  Calendar,
+} from "lucide-react";
 import { Church } from "@/components/common/church-card";
 import ChurchDetailHeader from "@/components/common/church-detail-header";
 import ChurchServices from "@/components/common/church-services";
 import ChurchLocationMap from "@/components/common/church-location-map";
 import Card from "@/components/ui/card";
 import Button from "@/components/ui/button";
+import Badge from "@/components/ui/badge";
 
 // Mock church data - replace with actual API call
 const getChurchById = (id: string): Church | null => {
@@ -172,183 +182,379 @@ export default function ChurchDetailPage() {
     );
   }
 
+  const fullAddress = `${church.address}, ${church.city}, ${church.state} ${church.zipCode}`;
+
   return (
     <div className="max-w-6xl mx-auto">
-      {/* Back Button */}
-      <Link
-        href="/app/find-church"
-        className="inline-flex items-center gap-2 text-[#6b5d4a] hover:text-[#5d4a2f] mb-6 transition-colors"
-      >
-        <ArrowLeft size={20} />
-        <span>Back to Find Church</span>
-      </Link>
+      {/* Mobile Layout */}
+      <div className="md:hidden">
+        {/* Back Button */}
+        <div className="px-0 pt-0">
+          <Link
+            href="/app/find-church"
+            className="inline-flex items-center gap-2 text-[#6b5d4a] hover:text-[#5d4a2f] mb-4 transition-colors"
+          >
+            <ArrowLeft size={20} />
+            <span>Back</span>
+          </Link>
+        </div>
 
-      {/* Header Section */}
-      <ChurchDetailHeader church={church} />
-
-      <div className="grid lg:grid-cols-3 gap-6 mt-8">
-        {/* Left Column - Main Content */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* About Section */}
-          <Card variant="paper" className="p-6">
-            <h2 className="text-xl font-bold text-[#3d2817] mb-4">About</h2>
-            <div className="prose prose-sm max-w-none text-[#6b5d4a]">
-              <p className="leading-relaxed">
-                {church.description || "No description available."}
-              </p>
-              <p className="mt-4 leading-relaxed">
-                We welcome visitors and new members to join our community.
-                Whether you&apos;re new to faith or have been walking with
-                Christ for years, you&apos;ll find a place to grow, serve, and
-                connect with other believers.
-              </p>
+        {/* Hero Image - Full Width */}
+        <div className="w-screen h-64 relative overflow-hidden bg-[#f5f1eb] -mx-4">
+          {church.image ? (
+            <Image
+              src={church.image}
+              alt={church.name}
+              fill
+              className="object-cover"
+              priority
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-[#5d4a2f] to-[#8b6f47] flex items-center justify-center">
+              <span className="text-white text-7xl">⛪</span>
             </div>
-          </Card>
+          )}
+        </div>
 
-          {/* Service Times */}
-          {church.serviceTimes && church.serviceTimes.length > 0 && (
-            <ChurchServices serviceTimes={church.serviceTimes} />
+        {/* Church Info Card */}
+        <Card
+          variant="paper"
+          className="p-2 -mt-4 rounded-t-3xl relative z-10 "
+        >
+          {/* Church Name */}
+          <h1 className="text-2xl font-bold text-[#3d2817] mb-3">
+            {church.name}
+          </h1>
+
+          {/* Location */}
+          <div className="flex items-center gap-2 text-[#6b5d4a] mb-3">
+            <MapPin size={16} className="text-[#8b6f47] flex-shrink-0" />
+            <span className="text-sm">
+              {church.city}, {church.state}
+            </span>
+          </div>
+
+          {/* Member Count */}
+          {church.memberCount && (
+            <div className="flex items-center gap-2 text-[#6b5d4a] mb-4">
+              <Users size={16} className="text-[#8b6f47] flex-shrink-0" />
+              <span className="text-sm font-medium">
+                {church.memberCount.toLocaleString()}+ Active Members
+              </span>
+            </div>
           )}
 
-          {/* Contact Section */}
-          <Card variant="paper" className="p-6">
-            <h2 className="text-xl font-bold text-[#3d2817] mb-4">
-              Contact Us
-            </h2>
-            <div className="space-y-4">
-              {church.phone && (
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#f5f1eb] rounded-lg flex items-center justify-center">
-                    <span className="text-[#8b6f47]">📞</span>
-                  </div>
-                  <div>
-                    <p className="text-sm text-[#6b5d4a]">Phone</p>
-                    <a
-                      href={`tel:${church.phone}`}
-                      className="text-[#3d2817] font-medium hover:text-[#5d4a2f] hover:underline"
-                    >
-                      {church.phone}
-                    </a>
-                  </div>
-                </div>
-              )}
+          {/* Description */}
+          {church.description && (
+            <p className="text-[#6b5d4a] text-sm leading-relaxed mb-6">
+              {church.description}
+            </p>
+          )}
 
-              {church.website && (
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#f5f1eb] rounded-lg flex items-center justify-center">
-                    <span className="text-[#8b6f47]">🌐</span>
-                  </div>
-                  <div>
-                    <p className="text-sm text-[#6b5d4a]">Website</p>
-                    <a
-                      href={church.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#3d2817] font-medium hover:text-[#5d4a2f] hover:underline"
-                    >
-                      {church.website.replace(/^https?:\/\//, "")}
-                    </a>
-                  </div>
-                </div>
-              )}
+          {/* Join Community Button */}
+          <Button
+            buttonType="primary"
+            buttonText="Join Community"
+            className="w-full mb-6"
+            onClick={() => {
+              // TODO: Implement join community functionality
+              console.log("Join community clicked");
+            }}
+          />
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[#f5f1eb] rounded-lg flex items-center justify-center">
-                  <Mail size={20} className="text-[#8b6f47]" />
+          {/* Additional Details */}
+          <div className="space-y-4 pt-4 border-t border-[#e8dfd0]">
+            {/* Denomination Badge */}
+            {church.denomination && (
+              <div>
+                <Badge variant="secondary" size="md">
+                  {church.denomination}
+                </Badge>
+              </div>
+            )}
+
+            {/* Service Times */}
+            {church.serviceTimes && church.serviceTimes.length > 0 && (
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Calendar size={16} className="text-[#8b6f47]" />
+                  <h3 className="text-sm font-semibold text-[#3d2817]">
+                    Service Times
+                  </h3>
                 </div>
-                <div>
-                  <p className="text-sm text-[#6b5d4a]">Email</p>
+                <div className="space-y-1 ml-6">
+                  {church.serviceTimes.map((time, index) => (
+                    <p key={index} className="text-sm text-[#6b5d4a]">
+                      {time}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Contact Information */}
+            <div>
+              <h3 className="text-sm font-semibold text-[#3d2817] mb-3">
+                Contact
+              </h3>
+              <div className="space-y-3">
+                {church.phone && (
                   <a
-                    href={`mailto:info@${church.name.toLowerCase().replace(/\s+/g, "")}.com`}
-                    className="text-[#3d2817] font-medium hover:text-[#5d4a2f] hover:underline"
+                    href={`tel:${church.phone}`}
+                    className="flex items-center gap-3 text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
                   >
-                    info@{church.name.toLowerCase().replace(/\s+/g, "")}.com
+                    <Phone size={18} className="text-[#8b6f47]" />
+                    <span className="text-sm">{church.phone}</span>
                   </a>
+                )}
+
+                {church.website && (
+                  <a
+                    href={church.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
+                  >
+                    <Globe size={18} className="text-[#8b6f47]" />
+                    <span className="text-sm truncate">
+                      {church.website.replace(/^https?:\/\//, "")}
+                    </span>
+                  </a>
+                )}
+
+                <div className="flex items-center gap-3 text-[#6b5d4a]">
+                  <Mail size={18} className="text-[#8b6f47]" />
+                  <span className="text-sm">
+                    info@{church.name.toLowerCase().replace(/\s+/g, "")}.com
+                  </span>
+                </div>
+
+                <div className="flex items-start gap-3 text-[#6b5d4a]">
+                  <MapPin size={18} className="text-[#8b6f47] mt-0.5" />
+                  <span className="text-sm flex-1">{fullAddress}</span>
                 </div>
               </div>
             </div>
-          </Card>
-        </div>
 
-        {/* Right Column - Sidebar */}
-        <div className="lg:col-span-1 space-y-6">
-          {/* Location Map */}
-          <ChurchLocationMap church={church} />
-
-          {/* Quick Actions */}
-          <Card variant="paper" className="p-6">
-            <h2 className="text-lg font-bold text-[#3d2817] mb-4">
-              Quick Actions
-            </h2>
-            <div className="space-y-3">
-              <Button
-                buttonType="primary"
-                buttonText="Get Directions"
-                buttonIcon={<span>📍</span>}
-                iconPosition="left"
-                className="w-full"
-                onClick={() => {
-                  window.open(
-                    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                      `${church.latitude},${church.longitude}`
-                    )}`,
-                    "_blank"
-                  );
-                }}
-              />
-              {church.phone && (
+            {/* Quick Actions */}
+            <div className="pt-4 border-t border-[#e8dfd0]">
+              <h3 className="text-sm font-semibold text-[#3d2817] mb-3">
+                Quick Actions
+              </h3>
+              <div className="space-y-2">
                 <Button
                   buttonType="secondary"
                   buttonVariant="outline"
-                  buttonText="Call Church"
-                  buttonIcon={<span>📞</span>}
+                  buttonText="Get Directions"
+                  buttonIcon={<MapPin size={16} />}
                   iconPosition="left"
                   className="w-full"
                   onClick={() => {
-                    window.location.href = `tel:${church.phone}`;
+                    window.open(
+                      `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                        `${church.latitude},${church.longitude}`
+                      )}`,
+                      "_blank"
+                    );
                   }}
                 />
-              )}
-              {church.website && (
-                <Button
-                  buttonType="secondary"
-                  buttonVariant="outline"
-                  buttonText="Visit Website"
-                  buttonIcon={<span>🌐</span>}
-                  iconPosition="left"
-                  className="w-full"
-                  onClick={() => {
-                    window.open(church.website!, "_blank");
-                  }}
-                />
-              )}
+                {church.phone && (
+                  <Button
+                    buttonType="secondary"
+                    buttonVariant="outline"
+                    buttonText="Call Church"
+                    buttonIcon={<Phone size={16} />}
+                    iconPosition="left"
+                    className="w-full"
+                    onClick={() => {
+                      window.location.href = `tel:${church.phone}`;
+                    }}
+                  />
+                )}
+              </div>
             </div>
-          </Card>
+          </div>
+        </Card>
+      </div>
 
-          {/* Church Stats */}
-          {church.memberCount && (
+      {/* Desktop Layout */}
+      <div className="hidden md:block">
+        {/* Back Button */}
+        <Link
+          href="/app/find-church"
+          className="inline-flex items-center gap-2 text-[#6b5d4a] hover:text-[#5d4a2f] mb-6 transition-colors"
+        >
+          <ArrowLeft size={20} />
+          <span>Back to Find Church</span>
+        </Link>
+
+        {/* Header Section */}
+        <ChurchDetailHeader church={church} />
+
+        <div className="grid lg:grid-cols-3 gap-6 mt-8">
+          {/* Left Column - Main Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* About Section */}
+            <Card variant="paper" className="p-6">
+              <h2 className="text-xl font-bold text-[#3d2817] mb-4">About</h2>
+              <div className="prose prose-sm max-w-none text-[#6b5d4a]">
+                <p className="leading-relaxed">
+                  {church.description || "No description available."}
+                </p>
+                <p className="mt-4 leading-relaxed">
+                  We welcome visitors and new members to join our community.
+                  Whether you&apos;re new to faith or have been walking with
+                  Christ for years, you&apos;ll find a place to grow, serve, and
+                  connect with other believers.
+                </p>
+              </div>
+            </Card>
+
+            {/* Service Times */}
+            {church.serviceTimes && church.serviceTimes.length > 0 && (
+              <ChurchServices serviceTimes={church.serviceTimes} />
+            )}
+
+            {/* Contact Section */}
+            <Card variant="paper" className="p-6">
+              <h2 className="text-xl font-bold text-[#3d2817] mb-4">
+                Contact Us
+              </h2>
+              <div className="space-y-4">
+                {church.phone && (
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-[#f5f1eb] rounded-lg flex items-center justify-center">
+                      <span className="text-[#8b6f47]">📞</span>
+                    </div>
+                    <div>
+                      <p className="text-sm text-[#6b5d4a]">Phone</p>
+                      <a
+                        href={`tel:${church.phone}`}
+                        className="text-[#3d2817] font-medium hover:text-[#5d4a2f] hover:underline"
+                      >
+                        {church.phone}
+                      </a>
+                    </div>
+                  </div>
+                )}
+
+                {church.website && (
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-[#f5f1eb] rounded-lg flex items-center justify-center">
+                      <span className="text-[#8b6f47]">🌐</span>
+                    </div>
+                    <div>
+                      <p className="text-sm text-[#6b5d4a]">Website</p>
+                      <a
+                        href={church.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#3d2817] font-medium hover:text-[#5d4a2f] hover:underline"
+                      >
+                        {church.website.replace(/^https?:\/\//, "")}
+                      </a>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-[#f5f1eb] rounded-lg flex items-center justify-center">
+                    <Mail size={20} className="text-[#8b6f47]" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-[#6b5d4a]">Email</p>
+                    <a
+                      href={`mailto:info@${church.name.toLowerCase().replace(/\s+/g, "")}.com`}
+                      className="text-[#3d2817] font-medium hover:text-[#5d4a2f] hover:underline"
+                    >
+                      info@{church.name.toLowerCase().replace(/\s+/g, "")}.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Right Column - Sidebar */}
+          <div className="lg:col-span-1 space-y-6">
+            {/* Location Map */}
+            <ChurchLocationMap church={church} />
+
+            {/* Quick Actions */}
             <Card variant="paper" className="p-6">
               <h2 className="text-lg font-bold text-[#3d2817] mb-4">
-                Church Stats
+                Quick Actions
               </h2>
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-[#6b5d4a]">Members</span>
-                  <span className="text-lg font-bold text-[#3d2817]">
-                    {church.memberCount.toLocaleString()}
-                  </span>
-                </div>
-                {church.distance && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-[#6b5d4a]">Distance</span>
-                    <span className="text-lg font-bold text-[#3d2817]">
-                      {church.distance.toFixed(1)} mi
-                    </span>
-                  </div>
+                <Button
+                  buttonType="primary"
+                  buttonText="Get Directions"
+                  buttonIcon={<span>📍</span>}
+                  iconPosition="left"
+                  className="w-full"
+                  onClick={() => {
+                    window.open(
+                      `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                        `${church.latitude},${church.longitude}`
+                      )}`,
+                      "_blank"
+                    );
+                  }}
+                />
+                {church.phone && (
+                  <Button
+                    buttonType="secondary"
+                    buttonVariant="outline"
+                    buttonText="Call Church"
+                    buttonIcon={<span>📞</span>}
+                    iconPosition="left"
+                    className="w-full"
+                    onClick={() => {
+                      window.location.href = `tel:${church.phone}`;
+                    }}
+                  />
+                )}
+                {church.website && (
+                  <Button
+                    buttonType="secondary"
+                    buttonVariant="outline"
+                    buttonText="Visit Website"
+                    buttonIcon={<span>🌐</span>}
+                    iconPosition="left"
+                    className="w-full"
+                    onClick={() => {
+                      window.open(church.website!, "_blank");
+                    }}
+                  />
                 )}
               </div>
             </Card>
-          )}
+
+            {/* Church Stats */}
+            {church.memberCount && (
+              <Card variant="paper" className="p-6">
+                <h2 className="text-lg font-bold text-[#3d2817] mb-4">
+                  Church Stats
+                </h2>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-[#6b5d4a]">Members</span>
+                    <span className="text-lg font-bold text-[#3d2817]">
+                      {church.memberCount.toLocaleString()}
+                    </span>
+                  </div>
+                  {church.distance && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-[#6b5d4a]">Distance</span>
+                      <span className="text-lg font-bold text-[#3d2817]">
+                        {church.distance.toFixed(1)} mi
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     </div>
