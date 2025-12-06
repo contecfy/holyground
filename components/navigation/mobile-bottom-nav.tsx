@@ -40,9 +40,7 @@ const MobileBottomNav = () => {
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
-                isActive
-                  ? "text-[#5d4a2f]"
-                  : "text-[#6b5d4a] hover:text-[#5d4a2f]"
+                isActive ? "text-[#5d4a2f]" : "text-[gray] hover:text-[#5d4a2f]"
               }`}
             >
               <span className="mb-1">{item.icon}</span>
