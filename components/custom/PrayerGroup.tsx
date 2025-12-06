@@ -18,6 +18,7 @@ export const PrayerGroupCard = ({ group }: { group: PrayerGroup }) => {
               src={group.image}
               alt={group.name}
               fill
+              sizes="(max-width: 768px) 100vw, 300px"
               className="object-cover"
             />
           </div>

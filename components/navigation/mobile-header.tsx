@@ -31,7 +31,13 @@ const MobileHeader = () => {
 
             {/* Platform Name */}
             <Link href="/app" className="flex items-center gap-2">
-              <Image src="/logo.png" alt="yalor" width={40} height={40} />
+              <Image
+                src="/logo.png"
+                alt="yalor"
+                width={40}
+                height={40}
+                loading="eager"
+              />
               <h1 className="text-lg font-bold text-[#3d2817] tracking-wide">
                 yalor
               </h1>

@@ -20,6 +20,9 @@ import Avatar from "../ui/avatar";
 import Button from "../ui/button";
 import Image from "next/image";
 import { useSidebar } from "@/contexts/sidebar-context";
+import { useMe } from "@/hooks/useUser";
+import { useLogout } from "@/hooks/useAuth";
+import { LogOut } from "lucide-react";
 
 interface NavItem {
   label: string;
@@ -48,6 +51,12 @@ const navItems: NavItem[] = [
 const DesktopSidebar = () => {
   const pathname = usePathname();
   const { isCollapsed, toggleSidebar } = useSidebar();
+  const { data: user, isLoading: userLoading } = useMe();
+  const logoutMutation = useLogout();
+
+  const handleLogout = async () => {
+    await logoutMutation.mutateAsync();
+  };
 
   return (
     <aside
@@ -266,27 +275,79 @@ const DesktopSidebar = () => {
       </div>
 
       {/* User Profile */}
-      <div className="p-4 border-t border-[#d4c4b0]">
+      <div className="p-4 border-t border-[#d4c4b0] space-y-2">
         <Link
           href="/app/profile"
           className={`flex items-center gap-3 p-2 rounded-lg hover:bg-[#f5f1eb] transition-colors group relative ${isCollapsed ? "justify-center" : ""}`}
-          title={isCollapsed ? "Your Profile" : undefined}
+          title={
+            isCollapsed
+              ? user?.displayName || user?.firstName || "Your Profile"
+              : undefined
+          }
         >
-          <Avatar name="You" size={isCollapsed ? "sm" : "md"} />
+          {userLoading ? (
+            <div
+              className={`${isCollapsed ? "w-8 h-8" : "w-10 h-10"} rounded-full bg-[#e8dfd0] animate-pulse`}
+            />
+          ) : (
+            <Avatar
+              name={
+                user?.displayName ||
+                `${user?.firstName} ${user?.lastName}` ||
+                "User"
+              }
+              src={user?.avatar}
+              size={isCollapsed ? "sm" : "md"}
+            />
+          )}
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-[#3d2817] truncate">
-                Your Profile
-              </p>
-              <p className="text-xs text-[#6b5d4a]">Level 5 • 1.2k Rep</p>
+              {userLoading ? (
+                <>
+                  <div className="h-4 bg-[#e8dfd0] rounded animate-pulse mb-1" />
+                  <div className="h-3 bg-[#e8dfd0] rounded animate-pulse w-20" />
+                </>
+              ) : (
+                <>
+                  <p className="font-semibold text-[#3d2817] truncate">
+                    {user?.displayName ||
+                      `${user?.firstName} ${user?.lastName}` ||
+                      "Your Profile"}
+                  </p>
+                  <p className="text-xs text-[#6b5d4a]">
+                    Level {user?.level || 1} •{" "}
+                    {(user?.reputation || 0).toLocaleString()} Rep
+                  </p>
+                </>
+              )}
             </div>
           )}
           {isCollapsed && (
             <div className="absolute left-full ml-2 px-2 py-1 bg-[#3d2817] text-white text-sm rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">
-              Your Profile
+              {user?.displayName || user?.firstName || "Your Profile"}
             </div>
           )}
         </Link>
+
+        {/* Logout Button */}
+        <button
+          onClick={handleLogout}
+          disabled={logoutMutation.isPending}
+          className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg text-[#6b5d4a] hover:bg-[#f5f1eb] hover:text-[#5d4a2f] transition-colors group relative ${isCollapsed ? "justify-center" : ""} disabled:opacity-50 disabled:cursor-not-allowed`}
+          title={isCollapsed ? "Log Out" : undefined}
+        >
+          <LogOut size={isCollapsed ? 20 : 18} className="flex-shrink-0" />
+          {!isCollapsed && (
+            <span>
+              {logoutMutation.isPending ? "Logging out..." : "Log Out"}
+            </span>
+          )}
+          {isCollapsed && (
+            <div className="absolute left-full ml-2 px-2 py-1 bg-[#3d2817] text-white text-sm rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity whitespace-nowrap z-50">
+              Log Out
+            </div>
+          )}
+        </button>
       </div>
     </aside>
   );

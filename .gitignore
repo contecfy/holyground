@@ -13,6 +13,10 @@
 # testing
 /coverage
 
+#refrences
+/docs
+/Backend reference
+
 # next.js
 /.next/
 /out/

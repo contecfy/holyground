@@ -15,10 +15,20 @@ import {
 } from "lucide-react";
 import Avatar from "../ui/avatar";
 import Badge from "../ui/badge";
+import {
+  useUpvotePost,
+  useRemoveUpvote,
+  useDownvotePost,
+  useRemoveDownvote,
+  usePostVoteStatus,
+  useBookmarkPost,
+  useRemoveBookmark,
+} from "@/hooks/usePosts";
 
 export interface QuestionCardProps {
   id: string;
   question: string;
+  content?: string;
   author: {
     name: string;
     username: string;
@@ -43,6 +53,7 @@ export interface QuestionCardProps {
 const QuestionCard = ({
   id,
   question,
+  content,
   author,
   topics,
   books = [],
@@ -55,6 +66,44 @@ const QuestionCard = ({
   topAnswer,
 }: QuestionCardProps) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  // Get vote status
+  const { data: voteStatus } = usePostVoteStatus(id);
+  const upvoteMutation = useUpvotePost();
+  const removeUpvoteMutation = useRemoveUpvote();
+  const downvoteMutation = useDownvotePost();
+  const removeDownvoteMutation = useRemoveDownvote();
+  const bookmarkMutation = useBookmarkPost();
+  const _removeBookmarkMutation = useRemoveBookmark();
+
+  const handleUpvote = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (voteStatus === "upvote") {
+      await removeUpvoteMutation.mutateAsync(id);
+    } else {
+      await upvoteMutation.mutateAsync(id);
+    }
+  };
+
+  const _handleDownvote = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (voteStatus === "downvote") {
+      await removeDownvoteMutation.mutateAsync(id);
+    } else {
+      await downvoteMutation.mutateAsync(id);
+    }
+  };
+
+  const handleBookmark = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // TODO: Check if bookmarked first
+    await bookmarkMutation.mutateAsync(id);
+  };
 
   return (
     <Link href={`/app/question/${id}`}>
@@ -111,6 +160,13 @@ const QuestionCard = ({
           {question}
         </h2>
 
+        {/* Content Preview */}
+        {content && (
+          <p className="text-sm text-[#6b5d4a] mb-3 line-clamp-3 leading-relaxed">
+            {content}
+          </p>
+        )}
+
         {/* Topics & Books */}
         <div className="flex flex-wrap gap-2 mb-4">
           {topics.map((topic) => (
@@ -156,6 +212,7 @@ const QuestionCard = ({
                   src={image}
                   alt={`Question image ${index + 1}`}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-200"
                 />
                 {images.length > 3 && index === 2 && (
@@ -212,6 +269,7 @@ const QuestionCard = ({
                 src={selectedImage}
                 alt="Full size image"
                 fill
+                sizes="100vw"
                 className="object-contain"
               />
             </div>
@@ -221,11 +279,15 @@ const QuestionCard = ({
         {/* Stats */}
         <div className="flex items-center gap-6 pt-3 text-sm text-[#6b5d4a]">
           <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-            className="flex items-center gap-1 hover:text-[#5d4a2f] transition-colors"
+            onClick={handleUpvote}
+            disabled={
+              upvoteMutation.isPending || removeUpvoteMutation.isPending
+            }
+            className={`flex items-center gap-1 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+              voteStatus === "upvote"
+                ? "text-[#5d4a2f] font-semibold"
+                : "hover:text-[#5d4a2f]"
+            }`}
           >
             <ArrowUpWideNarrow size={16} />
             <span className="font-medium text-sm">{upvotes}</span>
@@ -244,17 +306,16 @@ const QuestionCard = ({
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
+                // TODO: Implement share
               }}
               className="text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
             >
               <Share2 size={16} />
             </button>
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-              className="text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors"
+              onClick={handleBookmark}
+              disabled={bookmarkMutation.isPending}
+              className="text-[#6b5d4a] hover:text-[#5d4a2f] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Bookmark size={16} />
             </button>

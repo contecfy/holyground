@@ -11,20 +11,27 @@ import {
   ChevronRight,
   ChevronDown as ChevronDownIcon,
 } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
 import Card from "../ui/card";
 import Avatar from "../ui/avatar";
 import Badge from "../ui/badge";
+import {
+  useUpvoteAnswer,
+  useDownvoteAnswer,
+  useRemoveAnswerVote,
+} from "@/hooks/usePosts";
 
 interface Verse {
   book: string;
   chapter: number;
-  verse: number;
+  verse: number | string;
   text: string;
+  translation?: string;
 }
 
 interface AnswerCardProps {
   id: string;
-  answer: string;
+  content: string;
   author: {
     name: string;
     username: string;
@@ -35,28 +42,70 @@ interface AnswerCardProps {
   };
   upvotes: number;
   downvotes: number;
+  replies?: number;
   userVote?: "up" | "down" | null;
   verses?: Verse[];
   timestamp: string;
   isTopAnswer?: boolean;
+  isEdited?: boolean;
+  editedAt?: string;
+  postId?: string;
+  answerId?: string;
   onUpvote?: () => void;
   onDownvote?: () => void;
 }
 
 const AnswerCard = ({
   id: _id,
-  answer,
+  content,
   author,
   upvotes,
   downvotes,
+  _replies = 0,
   userVote,
   verses = [],
   timestamp,
   isTopAnswer = false,
+  isEdited = false,
+  editedAt,
+  postId,
+  answerId,
   onUpvote,
   onDownvote,
 }: AnswerCardProps) => {
   const [expandedVerses, setExpandedVerses] = useState<Set<string>>(new Set());
+
+  const upvoteMutation = useUpvoteAnswer();
+  const downvoteMutation = useDownvoteAnswer();
+  const removeVoteMutation = useRemoveAnswerVote();
+
+  const handleUpvote = async () => {
+    if (!postId || !answerId) return;
+
+    if (userVote === "up") {
+      // Remove upvote
+      await removeVoteMutation.mutateAsync({ postId, answerId });
+    } else {
+      // Add upvote
+      await upvoteMutation.mutateAsync({ postId, answerId });
+    }
+
+    onUpvote?.();
+  };
+
+  const handleDownvote = async () => {
+    if (!postId || !answerId) return;
+
+    if (userVote === "down") {
+      // Remove downvote
+      await removeVoteMutation.mutateAsync({ postId, answerId });
+    } else {
+      // Add downvote
+      await downvoteMutation.mutateAsync({ postId, answerId });
+    }
+
+    onDownvote?.();
+  };
 
   const toggleVerse = (verseKey: string) => {
     const newExpanded = new Set(expandedVerses);
@@ -114,8 +163,16 @@ const AnswerCard = ({
       {/* Answer Content */}
       <div className="mb-4">
         <p className="text-[#3d2817] leading-relaxed whitespace-pre-wrap">
-          {answer}
+          {content}
         </p>
+        {isEdited && (
+          <p className="text-xs text-[#6b5d4a] mt-2 italic">
+            Edited{" "}
+            {editedAt
+              ? formatDistanceToNow(new Date(editedAt), { addSuffix: true })
+              : ""}
+          </p>
+        )}
       </div>
 
       {/* Verses */}
@@ -157,8 +214,11 @@ const AnswerCard = ({
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <button
-              onClick={onUpvote}
-              className={`p-2 rounded-lg transition-colors ${
+              onClick={handleUpvote}
+              disabled={
+                upvoteMutation.isPending || removeVoteMutation.isPending
+              }
+              className={`p-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                 userVote === "up"
                   ? "bg-[#8b6f47] text-white"
                   : "bg-[#f5f1eb] text-[#6b5d4a] hover:bg-[#e8dfd0]"
@@ -171,8 +231,11 @@ const AnswerCard = ({
               {netVotes}
             </span>
             <button
-              onClick={onDownvote}
-              className={`p-2 rounded-lg transition-colors ${
+              onClick={handleDownvote}
+              disabled={
+                downvoteMutation.isPending || removeVoteMutation.isPending
+              }
+              className={`p-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                 userVote === "down"
                   ? "bg-red-200 text-red-700"
                   : "bg-[#f5f1eb] text-[#6b5d4a] hover:bg-[#e8dfd0]"

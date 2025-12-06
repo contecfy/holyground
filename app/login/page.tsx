@@ -2,30 +2,52 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { Mail, AlertCircle } from "lucide-react";
 import Button from "@/components/ui/button";
 import Input from "@/components/ui/input";
 import Image from "next/image";
+import { useLogin } from "@/hooks/useAuth";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isEmailMode, setIsEmailMode] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const loginMutation = useLogin();
 
   const handleGoogleSignIn = () => {
-    // TODO: Implement Google OAuth
-    console.log("Sign in with Google");
+    // Redirect to Google OAuth endpoint
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/auth/google`;
   };
 
-  const handleEmailSignIn = () => {
-    if (email.trim()) {
-      // TODO: Implement email sign in
-      console.log("Sign in with email:", email);
+  const handleEmailSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!email.trim() || !password.trim()) {
+      setError("Please enter both email and password");
+      return;
+    }
+
+    try {
+      await loginMutation.mutateAsync({
+        emailOrUsername: email.trim(),
+        password: password.trim(),
+      });
+    } catch (err: unknown) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Login failed. Please check your credentials."
+      );
     }
   };
 
   const handleContinueWithEmail = () => {
     if (email.trim()) {
       setIsEmailMode(true);
+      setError(null);
     }
   };
 
@@ -34,7 +56,13 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex flex-col items-center mb-8">
-          <Image src="/logo.png" alt="yalor" width={100} height={100} />
+          <Image
+            src="/logo.png"
+            alt="yalor"
+            width={100}
+            height={100}
+            loading="eager"
+          />
           <h1 className="text-2xl font-bold text-[#3d2817] tracking-wide">
             yalor
           </h1>
@@ -50,6 +78,14 @@ export default function LoginPage() {
               ? "Enter your email to continue"
               : "Sign in to continue to yalor"}
           </p>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-red-700">{error}</p>
+            </div>
+          )}
 
           {!isEmailMode ? (
             <div className="space-y-3">
@@ -112,13 +148,17 @@ export default function LoginPage() {
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
+            <form onSubmit={handleEmailSignIn} className="space-y-4">
               <div className="p-4 bg-[#f5f1eb] rounded-lg border border-[#e8dfd0]">
                 <p className="text-sm text-[#3d2817] font-medium mb-1">
                   {email}
                 </p>
                 <button
-                  onClick={() => setIsEmailMode(false)}
+                  type="button"
+                  onClick={() => {
+                    setIsEmailMode(false);
+                    setError(null);
+                  }}
                   className="text-xs text-[#6b5d4a] hover:text-[#5d4a2f] underline"
                 >
                   Change
@@ -130,6 +170,12 @@ export default function LoginPage() {
                 placeholder="Password"
                 variant="default"
                 className="w-full"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError(null);
+                }}
+                required
               />
 
               <div className="flex items-center justify-between text-sm">
@@ -151,20 +197,27 @@ export default function LoginPage() {
               <Button
                 buttonType="primary"
                 buttonSize="large"
-                buttonText="Sign in"
-                onClick={handleEmailSignIn}
+                buttonText={
+                  loginMutation.isPending ? "Signing in..." : "Sign in"
+                }
+                buttonDisabled={loginMutation.isPending || !password.trim()}
                 className="w-full"
+                type="submit"
               />
 
               <div className="text-center">
                 <button
-                  onClick={() => setIsEmailMode(false)}
+                  type="button"
+                  onClick={() => {
+                    setIsEmailMode(false);
+                    setError(null);
+                  }}
                   className="text-sm text-[#6b5d4a] hover:text-[#5d4a2f] underline"
                 >
                   ← Back
                 </button>
               </div>
-            </div>
+            </form>
           )}
 
           {/* Sign Up Link */}

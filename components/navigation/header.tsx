@@ -12,7 +12,13 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <Image src="/logo.png" alt="yalor" width={60} height={60} />
+            <Image
+              src="/logo.png"
+              alt="yalor"
+              width={60}
+              height={60}
+              loading="eager"
+            />
             <div>
               <h1 className="text-2xl font-bold text-[#3d2817] tracking-wide">
                 yalor

@@ -112,6 +112,7 @@ const PostCard = ({
                 src={image}
                 alt={`Post image ${index + 1}`}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-200"
               />
               {images.length > 4 && index === 3 && (
@@ -143,6 +144,7 @@ const PostCard = ({
               src={selectedImage}
               alt="Full size image"
               fill
+              sizes="100vw"
               className="object-contain"
             />
           </div>

@@ -21,24 +21,27 @@ import {
   Video,
   FileText,
 } from "lucide-react";
+import { useMe } from "@/hooks/useUser";
 
 export default function ProfilePage() {
   const [activeTab, setActiveTab] = useState<
     "posts" | "questions" | "answers" | "media"
   >("posts");
   const [isFollowing, setIsFollowing] = useState(false);
+  const { data: user, isLoading: userLoading } = useMe();
 
   const userQuestions = demoQuestions.slice(0, 3);
 
+  // Use real user data for stats, fallback to hardcoded values
   const stats = {
-    posts: 142,
-    questions: 24,
-    answers: 67,
-    upvotes: 1240,
-    reputation: 2100,
-    level: 9,
-    following: 234,
-    followers: 1847,
+    posts: user?.postsCount || 142,
+    questions: user?.questionsCount || 24,
+    answers: user?.answersCount || 67,
+    upvotes: user?.upvotesReceived || 1240,
+    reputation: user?.reputation || 2100,
+    level: user?.level || 9,
+    following: user?.followingCount || 234,
+    followers: user?.followersCount || 1847,
   };
 
   // Mock posts data formatted for QuestionCard component
@@ -48,9 +51,10 @@ export default function ProfilePage() {
       question:
         "Reflecting on Philippians 4:6-7 today. The peace of God truly surpasses all understanding when we bring our anxieties to Him in prayer. 🙏",
       author: {
-        name: "Your Name",
-        username: "yourusername",
-        avatar: undefined,
+        name:
+          user?.displayName || `${user?.firstName} ${user?.lastName}` || "User",
+        username: user?.username || "username",
+        avatar: user?.avatar,
         reputation: stats.reputation,
         level: stats.level,
       },
@@ -67,9 +71,10 @@ export default function ProfilePage() {
       question:
         "Just finished an amazing Bible study session on the book of Romans. The depth of God's grace never ceases to amaze me. What are you studying this week?",
       author: {
-        name: "Your Name",
-        username: "yourusername",
-        avatar: undefined,
+        name:
+          user?.displayName || `${user?.firstName} ${user?.lastName}` || "User",
+        username: user?.username || "username",
+        avatar: user?.avatar,
         reputation: stats.reputation,
         level: stats.level,
       },
@@ -86,9 +91,10 @@ export default function ProfilePage() {
       question:
         'Morning devotion: "Trust in the Lord with all your heart and lean not on your own understanding." - Proverbs 3:5',
       author: {
-        name: "Your Name",
-        username: "yourusername",
-        avatar: undefined,
+        name:
+          user?.displayName || `${user?.firstName} ${user?.lastName}` || "User",
+        username: user?.username || "username",
+        avatar: user?.avatar,
         reputation: stats.reputation,
         level: stats.level,
       },
@@ -105,9 +111,10 @@ export default function ProfilePage() {
       question:
         "Prayer request: Please pray for our community as we navigate these challenging times. God is faithful!",
       author: {
-        name: "Your Name",
-        username: "yourusername",
-        avatar: undefined,
+        name:
+          user?.displayName || `${user?.firstName} ${user?.lastName}` || "User",
+        username: user?.username || "username",
+        avatar: user?.avatar,
         reputation: stats.reputation,
         level: stats.level,
       },
@@ -145,7 +152,19 @@ export default function ProfilePage() {
           {/* Avatar Section - Bigger */}
           <div className="flex-shrink-0 flex justify-center md:justify-start">
             <div className="relative">
-              <Avatar name="You" size="3xl" />
+              {userLoading ? (
+                <div className="w-32 h-32 rounded-full bg-[#e8dfd0] animate-pulse" />
+              ) : (
+                <Avatar
+                  name={
+                    user?.displayName ||
+                    `${user?.firstName} ${user?.lastName}` ||
+                    "User"
+                  }
+                  src={user?.avatar}
+                  size="3xl"
+                />
+              )}
               <button className="absolute bottom-0 right-0 md:right-2 bg-[#5d4a2f] text-white rounded-full p-2 hover:bg-[#3d2817] transition-colors shadow-lg">
                 <Camera size={16} />
               </button>
@@ -157,15 +176,25 @@ export default function ProfilePage() {
             {/* Username and Actions */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-xl md:text-2xl font-bold text-[#3d2817]">
-                  yourusername
-                </h1>
-                <Badge variant="primary" size="sm">
-                  Level {stats.level}
-                </Badge>
-                <Badge variant="success" size="sm">
-                  ✓ Verified
-                </Badge>
+                {userLoading ? (
+                  <div className="h-7 bg-[#e8dfd0] rounded animate-pulse w-32" />
+                ) : (
+                  <h1 className="text-xl md:text-2xl font-bold text-[#3d2817]">
+                    {user?.username || "username"}
+                  </h1>
+                )}
+                {!userLoading && (
+                  <>
+                    <Badge variant="primary" size="sm">
+                      Level {stats.level}
+                    </Badge>
+                    {user?.isVerified && (
+                      <Badge variant="success" size="sm">
+                        ✓ Verified
+                      </Badge>
+                    )}
+                  </>
+                )}
               </div>
               <div className="flex gap-2 flex-wrap">
                 <Button
@@ -228,20 +257,31 @@ export default function ProfilePage() {
 
             {/* Bio - Instagram Style */}
             <div className="mb-4">
-              <p className="font-semibold text-[#3d2817] mb-1">Your Name</p>
-              <p className="text-[#3d2817] mb-2">
-                Passionate about sharing God&apos;s word and helping others grow
-                in faith. Love studying doctrine and apologetics. ✝️
-              </p>
-              <div className="flex flex-wrap gap-2 text-sm">
-                <a href="#" className="text-[#5d4a2f] hover:underline">
-                  yalor.com
-                </a>
-                <span className="text-[#6b5d4a]">•</span>
-                <a href="#" className="text-[#5d4a2f] hover:underline">
-                  Bible Study Leader
-                </a>
-              </div>
+              {userLoading ? (
+                <>
+                  <div className="h-5 bg-[#e8dfd0] rounded animate-pulse mb-2 w-32" />
+                  <div className="h-4 bg-[#e8dfd0] rounded animate-pulse mb-2 w-full" />
+                  <div className="h-4 bg-[#e8dfd0] rounded animate-pulse mb-2 w-3/4" />
+                </>
+              ) : (
+                <>
+                  <p className="font-semibold text-[#3d2817] mb-1">
+                    {user?.displayName ||
+                      `${user?.firstName} ${user?.lastName}` ||
+                      "User"}
+                  </p>
+                  {user?.bio && (
+                    <p className="text-[#3d2817] mb-2 whitespace-pre-wrap">
+                      {user.bio}
+                    </p>
+                  )}
+                  {!user?.bio && (
+                    <p className="text-[#6b5d4a] italic mb-2">
+                      No bio yet. Add one to tell others about yourself!
+                    </p>
+                  )}
+                </>
+              )}
             </div>
 
             {/* Additional Stats - Twitter Style */}
