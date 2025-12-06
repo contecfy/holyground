@@ -5,13 +5,19 @@ import Link from "next/link";
 import { HandHeart, Menu, Search } from "lucide-react";
 import MobileSidebar from "./mobile-sidebar";
 import Image from "next/image";
+import { useScrollDirection } from "@/hooks/use-scroll-direction";
 
 const MobileHeader = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const isVisible = useScrollDirection();
 
   return (
     <>
-      <header className="md:hidden sticky top-0 z-40 bg-white border-b border-[#d4c4b0]">
+      <header
+        className={`md:hidden sticky top-0 z-40 bg-white border-b border-[#d4c4b0] transition-transform duration-300 ease-in-out ${
+          isVisible ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
         <div className="flex items-center h-14 justify-between px-4">
           <div className="flex items-center gap-2">
             {/* Menu Icon */}

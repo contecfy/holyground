@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Church, PenSquare, Heart, MessageCircle, Search } from "lucide-react";
+import { useScrollDirection } from "@/hooks/use-scroll-direction";
 
 interface NavItem {
   label: string;
@@ -25,9 +26,14 @@ const navItems: NavItem[] = [
 
 const MobileBottomNav = () => {
   const pathname = usePathname();
+  const isVisible = useScrollDirection();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#d4c4b0] md:hidden">
+    <nav
+      className={`fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#d4c4b0] md:hidden transition-transform duration-300 ease-in-out ${
+        isVisible ? "translate-y-0" : "translate-y-full"
+      }`}
+    >
       <div className="flex items-center justify-around h-16">
         {navItems.map((item) => {
           const isActive =
