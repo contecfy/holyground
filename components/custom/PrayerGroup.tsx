@@ -13,7 +13,7 @@ export const PrayerGroupCard = ({ group }: { group: PrayerGroup }) => {
     >
       <div className="flex flex-col md:flex-row gap-4">
         {group.image && (
-          <div className="relative w-full md:w-48 h-48 rounded-lg overflow-hidden bg-[#f5f1eb] flex-shrink-0">
+          <div className="relative w-full md:w-48 h-48 md:h-full rounded-lg overflow-hidden bg-[#f5f1eb] flex-shrink-0 md:self-stretch">
             <Image
               src={group.image}
               alt={group.name}
