@@ -3,7 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Phone, Globe, Users, Calendar } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  Globe,
+  Users,
+  Calendar,
+  ExternalLink,
+} from "lucide-react";
 import Card from "../ui/card";
 import Badge from "../ui/badge";
 
@@ -141,11 +148,24 @@ const ChurchCard = ({ church, onClick }: ChurchCardProps) => {
                   </Badge>
                 )}
               </div>
-              {church.distance && (
-                <span className="text-sm text-[#6b5d4a] font-medium flex-shrink-0 ml-2">
-                  {church.distance.toFixed(1)} mi
-                </span>
-              )}
+              <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+                {church.distance && (
+                  <span className="text-sm text-[#6b5d4a] font-medium">
+                    {church.distance.toFixed(1)} mi
+                  </span>
+                )}
+                {onClick && (
+                  <Link
+                    href={`/app/church/${church.id}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="p-2 text-[#6b5d4a] hover:text-[#5d4a2f] hover:bg-[#f5f1eb] rounded-lg transition-colors"
+                    aria-label="View church details"
+                    title="View details"
+                  >
+                    <ExternalLink size={18} />
+                  </Link>
+                )}
+              </div>
             </div>
             {church.description && (
               <p className="text-sm text-[#6b5d4a] line-clamp-2 mb-4">
